@@ -55,18 +55,17 @@ int main() {
 					cout << "Falsche Eingabe" << endl;
 			}
 					
-		}while((verhaeltnisse < 1) || (verhaeltnisse > 4));
+		} while((verhaeltnisse < 1) || (verhaeltnisse > 4));
 
 		geschwindigkeit = geschwindigkeit / 3.6;
 		anhalteweg = geschwindigkeit * reaktion + geschwindigkeit * geschwindigkeit / (2 * verzoegerung);
 		if (anhalteweg < weg) {
 			cout << "Glueck gehabt!\nAnhalteweg: " << anhalteweg << endl;
-		}
-		else {
+		} else {
 			cout << "Es kam zum Crash!\nAnhalteweg: " << anhalteweg << endl;
 		}
 		cout << "Wollen Sie noch eine Berechnung durchfuehren?(J/j)";
 		cin >> nochmal;
 
-	}while ((nochmal == 'j') || (nochmal == 'J'));
+	} while ((nochmal == 'j') || (nochmal == 'J'));
 }

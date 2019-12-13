@@ -25,8 +25,6 @@ int main() {
 	cout << "\nKandidat 1 hat: " << f_prozkand1 << "%";
 	cout << "\nKandidat 2 hat: " << f_prozkand2 << "%\n";
 
-
-
 	getchar();
 	return 0;
 }

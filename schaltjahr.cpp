@@ -12,9 +12,9 @@ int main() {
 	if (eingjahr % 4 == 0) {	 
 		if (eingjahr % 100 == 0) {
 			if (eingjahr % 400 == 0) {
-				istsj = 1;
+				istsj = true;
 			} else {
-				istsj = 0;
+				istsj = false;
 			}
 		} else {
 			istsj = 1;
@@ -23,7 +23,7 @@ int main() {
 		istsj = 0;
 	}
 
-	if (istsj == 1) {
+	if (istsj == true) {
 		cout << "Es ist ein Schaltjahr!\n";
 	} else {
 		cout << "Es ist kein Schaltjahr!\n";
