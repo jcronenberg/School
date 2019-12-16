@@ -6,4 +6,4 @@ all: $(PROGS)
 
 %: %.cpp
 
-	g++ $(CFLAGS)  -o $@.out $<
+	g++ $(CFLAGS)  -o $@ $<
