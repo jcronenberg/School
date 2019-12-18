@@ -7,3 +7,6 @@ all: $(PROGS)
 %: %.cpp
 
 	g++ $(CFLAGS)  -o $@ $<
+
+clean:
+	rm -f $(PROGS)
