@@ -102,7 +102,7 @@ void tilgung(int ksumme, float zinssatz, int laufzeit)
 	cout << "Jaehrliche Annuitaet: " << annuitaet << endl;
 	cout << "\n\t\t\tZinsanteil\tTilgungsanteil\tRestschuld\n\n";
 
-	for(int i = 1; i <= laufzeit; i++) {
+	for(int i = 0; i < laufzeit; i++) {
 		zinsanteil = ksumme * ((qn - power(q, i-1)) / (qn - 1)) * zinssatz;
 		geszinsen += zinsanteil;
 		tilgung = ksumme * ((q - 1) / (qn - 1)) * power(q, i-1);
@@ -148,7 +148,7 @@ float eingabeBetrag(void)
 }
 float berechneEndbetrag(float kapital, float zinssatz, int laufzeit)
 {
-	for(int i = 1; i <= laufzeit; i++)
+	for(int i = 0; i < laufzeit; i++)
 		kapital *= 1 + (zinssatz / 100);
 
 	return kapital;
@@ -157,7 +157,7 @@ void berechneEndbetrag_jaehrlich(float kapital, float zinssatz, int laufzeit)
 {
 	cout << setprecision(2) << fixed << "\n\n";
 
-	for(int i = 1; i <= laufzeit; i++) {
+	for(int i = 0; i < laufzeit; i++) {
 		cout << "Nach dem " << i << ".Jahr:\t";
 		cout << berechneEndbetrag(kapital, zinssatz, i) << endl;
 	}
