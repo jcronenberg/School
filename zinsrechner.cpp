@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 #include <iomanip>
 
 using namespace std;
@@ -49,10 +48,11 @@ int main() {
 		default:
 			cout << "Menuepunkt existiert nicht" << endl;
 		}
+
 		cout << "\n\nWollen Sie nochmal? <J/N> ";
 		cin >> nochmal;
 
-	} while(nochmal == 'j' || nochmal == 'J');
+	} while (nochmal == 'j' || nochmal == 'J');
 
 }
 
