@@ -5,8 +5,8 @@ using namespace std;
 
 int menue(void);
 float eingabeBetrag(void);
-float berechneEndbetrag(float kapital, float zinssatz, int laufzeit);
-void berechneEndbetrag_jaehrlich(float kapital, float zinssatz, int laufzeit);
+float berechneEndbetrag(float, float ,int);
+void berechneEndbetrag_jaehrlich(float, float, int);
 float power(float, int);
 void tilgung(int, float, int);
 void eingabe(int, float&, float&, int&);
