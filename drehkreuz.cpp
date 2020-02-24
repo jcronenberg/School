@@ -16,4 +16,5 @@ int main() {
 		cout << "- Signal Drehkreuz -" << endl;
 	}
 	cout << "Kein freier Platz verfuegbar\nBitte nicht mehr einsteigen" << endl;
+
 }
