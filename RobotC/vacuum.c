@@ -14,27 +14,23 @@ Author:               Jorik Cronenberg
 
 task main()
 {
-	long iGrad = 0;
-	resetGyro(S2);
-	while(iGrad < 90)
+	bool bTouch = false;
+	while(true)
 	{
-		if (iGrad < 60)
+		bTouch = getTouchValue(S1);
+		if (!bTouch)
 		{
 			setMotorSpeed(motorB, 100);
-			setMotorSpeed(motorC, -100);
-		}
-		else if (iGrad < 89)
-		{
-			setMotorSpeed(motorB, 10);
-			setMotorSpeed(motorC, -10);
+			setMotorSpeed(motorC, 100);
 		}
 		else
 		{
-			setMotorSpeed(motorB, 3);
-			setMotorSpeed(motorC, -3);
+			setMotorSpeed(motorB, -50);
+			setMotorSpeed(motorC, -50);
+			sleep(300);
+			setMotorSpeed(motorB, -50);
+			setMotorSpeed(motorC, 50);
+			sleep((rand() % 500) + 300);
 		}
-		iGrad = getGyroDegrees(S2);
 	}
-	setMotorSpeed(motorB, 0);
-	setMotorSpeed(motorC, 0);
 }
