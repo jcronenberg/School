@@ -24,8 +24,9 @@ int main()
 
     do {
         selection = menu();
+        switch (selection) {
         //Selection 1: Parken
-        if (selection == 1) {
+        case 1:
             cout << "Auf welchem Parkplatz wollen sie parken?";
             cout << "(1-" << spaces << ")" << endl;
             cin >> parkselection;
@@ -38,15 +39,15 @@ int main()
             }
 
             waitForInput();
-        }
+            break;
         //Selection 2: Ausgabe
-        else if (selection == 2) {
+        case 2:
             printSpaces(parkarray);
 
             waitForInput();
-        }
+            break;
         //Selection 3: Ausparken
-        else if (selection == 3) {
+        case 3:
             cout << "Auf welchem Parkplatz stehen sie?";
             cout << "(1-" << spaces << ")" << endl;
             cin >> parkselection;
@@ -56,16 +57,16 @@ int main()
             }
 
             waitForInput();
-        }
+            break;
         //Selection 4: Mieten
-        else if (selection == 4) {
+        case 4:
             setArray(parkarray, OCCUPIED);
             cout << "Alle Parkplaetze sind nun fuer sie reserviert!" << endl;
             
             waitForInput();
-        }
+            break;
         //Selection 5: Ausgabe erster, freier Parkplatz
-        else if (selection == 5) {
+        case 5:
             if (findFirstFree(parkarray) != -1) {
                 cout << "Der erste, freie Parkplatz ist: Nummer ";
                 cout << findFirstFree(parkarray) + 1 << endl;
@@ -74,13 +75,14 @@ int main()
             }
 
             waitForInput();
-        }
+            break;
         //Selection 6: Anzahl freier Parkplaetze
-        else if (selection == 6) {
+        case 6:
             cout << "Anzahl freier Parkplaetze: ";
             cout << countFreeSpaces(parkarray) << endl;
 
             waitForInput();
+            break;
         }
     } while (selection != 0);
 }
@@ -123,7 +125,7 @@ int menu(void)
     cout << "5: Erste, freie Parkplatznummer ausgeben" << endl;
     cout << "6: Anzahl freier Parkplaetze ausgeben" << endl;
     cout << "--------------------" << endl;
-    cout << "selection: ";
+    cout << "Auswahl: ";
     cin >> selection;
     cout << "--------------------" << endl;
     } while (selection < 0 || selection > 6);
