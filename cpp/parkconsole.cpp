@@ -12,6 +12,7 @@ int menu(void);
 void waitForInput(void);
 int countFreeSpaces(int*);
 
+//Anzahl der Parkplaetze
 const int spaces = 10;
 
 int main()
@@ -25,7 +26,8 @@ int main()
         auswahl = menu();
         //Auswahl 1: Parken
         if (auswahl == 1) {
-            cout << "Auf welchem Parkplatz wollen sie parken?(1-10)" << endl;
+            cout << "Auf welchem Parkplatz wollen sie parken?";
+            cout << "(1-" << spaces << ")" << endl;
             cin >> parkauswahl;
             if (parkarray[parkauswahl - 1] == FREE) {
                 cout << "Parkplatz ist frei, sie koennen parken" << endl;
@@ -45,7 +47,8 @@ int main()
         }
         //Auswahl 3: Ausparken
         else if (auswahl == 3) {
-            cout << "Auf welchem Parkplatz stehen sie?(1-10)" << endl;
+            cout << "Auf welchem Parkplatz stehen sie?";
+            cout << "(1-" << spaces << ")" << endl;
             cin >> parkauswahl;
             if (parkarray[parkauswahl - 1] == OCCUPIED) {
                 cout << "Vielen dank dass sie hier geparkt haben!" << endl;
