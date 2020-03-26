@@ -18,20 +18,20 @@ const int spaces = 10;
 int main()
 {
     int parkarray[spaces];
-    int auswahl = 0;
-    int parkauswahl = 0;
+    int selection = 0;
+    int parkselection = 0;
     setArray(parkarray, FREE);
 
     do {
-        auswahl = menu();
-        //Auswahl 1: Parken
-        if (auswahl == 1) {
+        selection = menu();
+        //Selection 1: Parken
+        if (selection == 1) {
             cout << "Auf welchem Parkplatz wollen sie parken?";
             cout << "(1-" << spaces << ")" << endl;
-            cin >> parkauswahl;
-            if (parkarray[parkauswahl - 1] == FREE) {
+            cin >> parkselection;
+            if (parkarray[parkselection - 1] == FREE) {
                 cout << "Parkplatz ist frei, sie koennen parken" << endl;
-                parkarray[parkauswahl - 1] = OCCUPIED;
+                parkarray[parkselection - 1] = OCCUPIED;
             } else {
                 cout << "Parkplatz ist leider bereits belegt,";
                 cout << " bitte fahren sie weiter!" << endl;
@@ -39,33 +39,33 @@ int main()
 
             waitForInput();
         }
-        //Auswahl 2: Ausgabe
-        else if (auswahl == 2) {
+        //Selection 2: Ausgabe
+        else if (selection == 2) {
             printSpaces(parkarray);
 
             waitForInput();
         }
-        //Auswahl 3: Ausparken
-        else if (auswahl == 3) {
+        //Selection 3: Ausparken
+        else if (selection == 3) {
             cout << "Auf welchem Parkplatz stehen sie?";
             cout << "(1-" << spaces << ")" << endl;
-            cin >> parkauswahl;
-            if (parkarray[parkauswahl - 1] == OCCUPIED) {
+            cin >> parkselection;
+            if (parkarray[parkselection - 1] == OCCUPIED) {
                 cout << "Vielen dank dass sie hier geparkt haben!" << endl;
-                parkarray[parkauswahl - 1] = FREE;
+                parkarray[parkselection - 1] = FREE;
             }
 
             waitForInput();
         }
-        //Auswahl 4: Mieten
-        else if (auswahl == 4) {
+        //Selection 4: Mieten
+        else if (selection == 4) {
             setArray(parkarray, OCCUPIED);
             cout << "Alle Parkplaetze sind nun fuer sie reserviert!" << endl;
             
             waitForInput();
         }
-        //Auswahl 5: Ausgabe erster, freier Parkplatz
-        else if (auswahl == 5) {
+        //Selection 5: Ausgabe erster, freier Parkplatz
+        else if (selection == 5) {
             if (findFirstFree(parkarray) != -1) {
                 cout << "Der erste, freie Parkplatz ist: Nummer ";
                 cout << findFirstFree(parkarray) + 1 << endl;
@@ -75,14 +75,14 @@ int main()
 
             waitForInput();
         }
-        //Auswahl 6: Anzahl freier Parkplaetze
-        else if (auswahl == 6) {
+        //Selection 6: Anzahl freier Parkplaetze
+        else if (selection == 6) {
             cout << "Anzahl freier Parkplaetze: ";
             cout << countFreeSpaces(parkarray) << endl;
 
             waitForInput();
         }
-    } while (auswahl != 0);
+    } while (selection != 0);
 }
 
 int findFirstFree(int parkarray[])
@@ -110,7 +110,7 @@ void setArray(int parkarray[], int setvalue)
 
 int menu(void)
 {
-    int auswahl;
+    int selection;
 
     do {
     system("clear");
@@ -123,12 +123,12 @@ int menu(void)
     cout << "5: Erste, freie Parkplatznummer ausgeben" << endl;
     cout << "6: Anzahl freier Parkplaetze ausgeben" << endl;
     cout << "--------------------" << endl;
-    cout << "Auswahl: ";
-    cin >> auswahl;
+    cout << "selection: ";
+    cin >> selection;
     cout << "--------------------" << endl;
-    } while (auswahl < 0 || auswahl > 6);
+    } while (selection < 0 || selection > 6);
 
-    return auswahl;
+    return selection;
 }
 
 void waitForInput(void)
