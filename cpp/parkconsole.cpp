@@ -7,7 +7,7 @@ using namespace std;
 
 int findFirstFree(int*);
 void printSpaces(int*);
-void setarray(int*, int setvalue);
+void setArray(int*, int setvalue);
 int menu(void);
 void waitForInput(void);
 int countFreeSpaces(int*);
@@ -20,7 +20,7 @@ int main()
     int parkarray[spaces];
     int auswahl = 0;
     int parkauswahl = 0;
-    setarray(parkarray, FREE);
+    setArray(parkarray, FREE);
 
     do {
         auswahl = menu();
@@ -59,7 +59,7 @@ int main()
         }
         //Auswahl 4: Mieten
         else if (auswahl == 4) {
-            setarray(parkarray, OCCUPIED);
+            setArray(parkarray, OCCUPIED);
             cout << "Alle Parkplaetze sind nun fuer sie reserviert!" << endl;
             
             waitForInput();
@@ -102,7 +102,7 @@ void printSpaces(int parkarray[])
     cout << '|' << endl;
 }
 
-void setarray(int parkarray[], int setvalue)
+void setArray(int parkarray[], int setvalue)
 {
     for (int i = 0; i < spaces; i++)
         parkarray[i] = setvalue;
