@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-    int counter = 0;
-    int z;
+    unsigned int counter = 0;
+    unsigned int z;
     int light[5][40] = {
     {1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
     {1,0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0},
@@ -26,6 +26,7 @@ int main()
 
             cout << endl;
         }
+
         counter++;
         sleep(1);
     }
