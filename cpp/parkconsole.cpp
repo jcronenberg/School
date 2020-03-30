@@ -7,7 +7,7 @@ using namespace std;
 
 int findFirstFree(int*);
 void printSpaces(int*);
-void setArray(int*, int setvalue);
+void setArray(int*, int);
 int menu(void);
 void waitForInput(void);
 int countFreeSpaces(int*);
