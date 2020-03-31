@@ -38,13 +38,11 @@ int main()
                 cout << " bitte fahren sie weiter!" << endl;
             }
 
-            waitForInput();
             break;
         //Selection 2: Ausgabe
         case 2:
             printSpaces(parkarray);
 
-            waitForInput();
             break;
         //Selection 3: Ausparken
         case 3:
@@ -56,14 +54,12 @@ int main()
                 parkarray[parkselection - 1] = FREE;
             }
 
-            waitForInput();
             break;
         //Selection 4: Mieten
         case 4:
             setArray(parkarray, OCCUPIED);
             cout << "Alle Parkplaetze sind nun fuer sie reserviert!" << endl;
             
-            waitForInput();
             break;
         //Selection 5: Ausgabe erster, freier Parkplatz
         case 5:
@@ -74,16 +70,15 @@ int main()
                 cout << "Alle Parkplaetze sind belegt" << endl;
             }
 
-            waitForInput();
             break;
         //Selection 6: Anzahl freier Parkplaetze
         case 6:
             cout << "Anzahl freier Parkplaetze: ";
             cout << countFreeSpaces(parkarray) << endl;
 
-            waitForInput();
             break;
         }
+        waitForInput();
     } while (selection != 0);
 }
 
