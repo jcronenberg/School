@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -28,7 +29,8 @@ int main()
 {
     int newx, inputcolumn, player, counter;
     string playername1, playername2;
-    char repeat;
+    bool playbot = false;
+    char repeat, querybot;
     int playfield[maxvertikal][maxhorizontal];
     
     //Playloop
@@ -39,13 +41,25 @@ int main()
         //Reset Player and counter
         player = 2;
         counter = 0;
+        
+        //Play against bot?
+        cout << "Do you want to play against a bot (He's really bad)?(y|Y) ";
+        cin >> querybot;
+        if (querybot == 'y' || querybot == 'Y')
+            playbot = true;
+        else
+            playbot = false;
 
         //Ask for player names
         cout << "Input player names:" << endl;
         cout << "Player 1: ";
         cin >> playername1;
-        cout << "Player 2: ";
-        cin >> playername2;
+        if (!playbot) {
+            cout << "Player 2: ";
+            cin >> playername2;
+        } else {
+            playername2 = "BOT";
+        }
 
         //Game loop
         do {
@@ -59,18 +73,25 @@ int main()
             player == 1 ? player = 2 : player = 1;
 
             do {
-                if (newx == -1)
+                if (newx == -1 && !playbot)
                     cout << "Column is full, please select another" << endl;
                 //Ask player for column
                 cout << playername1 << " = " << WHITESQUARE << endl;
                 cout << playername2 << " = " << BLACKSQUARE << endl;
-                cout << "In which column do you want to place your stone ";
-                if (player == 1)
+                if (player == 1) {
+                    cout << "In which column do you want to place your stone ";
                     cout << playername1 << "? (1-" << maxhorizontal << ")";
-                if (player == 2)
+                    cin >> inputcolumn;
+                    inputcolumn--;
+                } else if (player == 2 && !playbot) {
+                    cout << "In which column do you want to place your stone ";
                     cout << playername2 << "? (1-" << maxhorizontal << ")";
-                cin >> inputcolumn;
-                inputcolumn--;
+                    cin >> inputcolumn;
+                    inputcolumn--;
+                } else if (playbot) {
+                    inputcolumn = rand() % maxhorizontal;
+                }
+
 
                 newx = placeStone(playfield, inputcolumn, player);
             } while (newx == -1);
