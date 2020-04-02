@@ -73,11 +73,14 @@ int main()
             player == 1 ? player = 2 : player = 1;
 
             do {
-                if (newx == -1 && !playbot)
+                if (newx == -1 && (!playbot || player == 1)) {
                     cout << "Column is full, please select another" << endl;
+                } else {
+                    cout << playername1 << " = " << WHITESQUARE << endl;
+                    cout << playername2 << " = " << BLACKSQUARE << endl;
+                }
+
                 //Ask player for column
-                cout << playername1 << " = " << WHITESQUARE << endl;
-                cout << playername2 << " = " << BLACKSQUARE << endl;
                 if (player == 1) {
                     cout << "In which column do you want to place your stone ";
                     cout << playername1 << "? (1-" << maxhorizontal << ")";
