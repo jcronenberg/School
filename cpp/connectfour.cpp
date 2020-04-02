@@ -27,6 +27,7 @@ void emptyPlayfield(int playfield[][maxhorizontal]);
 int main()
 {
     int newx, inputcolumn, player, counter;
+    string playername1, playername2;
     char repeat;
     int playfield[maxvertikal][maxhorizontal];
     
@@ -38,6 +39,13 @@ int main()
         //Reset Player and counter
         player = 2;
         counter = 0;
+
+        //Ask for player names
+        cout << "Input player names:" << endl;
+        cout << "Player 1: ";
+        cin >> playername1;
+        cout << "Player 2: ";
+        cin >> playername2;
 
         //Game loop
         do {
@@ -54,10 +62,13 @@ int main()
                 if (newx == -1)
                     cout << "Column is full, please select another" << endl;
                 //Ask player for column
-                cout << "Player 1 = " << WHITESQUARE << endl;
-                cout << "Player 2 = " << BLACKSQUARE << endl;
-                cout << "In which column do you want to place your stone player ";
-                cout << player << "? (1-" << maxhorizontal << ")";
+                cout << playername1 << " = " << WHITESQUARE << endl;
+                cout << playername2 << " = " << BLACKSQUARE << endl;
+                cout << "In which column do you want to place your stone ";
+                if (player == 1)
+                    cout << playername1 << "? (1-" << maxhorizontal << ")";
+                if (player == 2)
+                    cout << playername2 << "? (1-" << maxhorizontal << ")";
                 cin >> inputcolumn;
                 inputcolumn--;
 
@@ -68,7 +79,10 @@ int main()
             
         } while (!winCondition(playfield, newx, inputcolumn));
 
-        cout << "Congrats player " << player << ". YOU WIN!" << endl;
+        if (player == 1)
+            cout << "Congrats " << playername1 << ". YOU WIN!" << endl;
+        if (player == 2)
+            cout << "Congrats " << playername2 << ". YOU WIN!" << endl;
         
 playagain:
         //Play again?
@@ -108,6 +122,7 @@ int placeStone(int playfield[maxvertikal][maxhorizontal], int column, int player
 void renderPlayfield(int playfield[maxvertikal][maxhorizontal])
 {
     system("clear");
+    cout << "Connect Four\n\n";
     cout << "  ";
     for (int i = 1; i <= maxhorizontal; i++)
         cout << i << "   ";
