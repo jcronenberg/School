@@ -81,7 +81,7 @@ int main()
                     cout << playername2 << " = " << BLACKSQUARE << endl;
                 }
 
-                //Ask player for column
+                //Ask player for column or use random for bot
                 if (player == 1 || (player == 2 && !playbot)) {
                     do {
                         if (inputcolumn < 0 || inputcolumn > maxhorizontal - 1)
@@ -110,13 +110,13 @@ int main()
             
         } while (!winCondition(playfield, newx, inputcolumn));
 
+        //Win message
         if (player == 1)
             cout << "Congrats " << playername1 << ". YOU WIN!" << endl;
         if (player == 2)
             cout << "Congrats " << playername2 << ". YOU WIN!" << endl;
         
 playagain:
-        //Play again?
         cout << "Do you want to play again?(y|Y) ";
         cin >> repeat;
     } while (repeat == 'Y' || repeat == 'y');
@@ -129,6 +129,7 @@ void emptyPlayfield(int playfield[maxvertikal][maxhorizontal])
             playfield[x][y] = 0;
 }
 
+//Render stone falling at column and returns the new x position
 int placeStone(int playfield[maxvertikal][maxhorizontal], int column, int player)
 {
     int retval;
@@ -138,8 +139,10 @@ int placeStone(int playfield[maxvertikal][maxhorizontal], int column, int player
 
     for (int i = maxvertikal - 1; i >= 0; i--) {
         if (playfield[i][column] == 0) {
+            //Dont change above field if it is the top line
             if (i < maxvertikal - 1)
                 playfield[i+1][column] = 0;
+
             playfield[i][column] = player;
             renderPlayfield(playfield);
             usleep(100000);
@@ -154,14 +157,20 @@ void renderPlayfield(int playfield[maxvertikal][maxhorizontal])
 {
     system("clear");
     cout << "Connect Four\n\n";
+
+    //Print column numbers
     cout << "  ";
     for (int i = 1; i <= maxhorizontal; i++)
         cout << i << "   ";
     cout << endl;
+
+    //Print upper line
     cout << "-";
     for (int i = 0; i < maxhorizontal; i++)
         cout << "----";
     cout << endl;
+
+    //Print board
     for (int x = maxvertikal - 1; x >= 0; x--) {
         for (int y = 0; y < maxhorizontal; y++) {
             cout << "| ";
@@ -182,6 +191,7 @@ void renderPlayfield(int playfield[maxvertikal][maxhorizontal])
     }
 }
 
+//Return true if stone at position x, y causes the player to win
 bool winCondition(int playfield[maxvertikal][maxhorizontal], int x, int y)
 {
     for (int i = DOWN; i <= UPRIGHT; i++) {
@@ -199,6 +209,7 @@ bool winCondition(int playfield[maxvertikal][maxhorizontal], int x, int y)
     return false;
 }
 
+//Return true, if stone at x, y is the same as stone at the direction and offset
 bool checkSpace(int playfield[maxvertikal][maxhorizontal],
         int x, int y, int direction, int offset)
 {
