@@ -5,12 +5,12 @@
 using namespace std;
 
 
-#define UP 0
-#define DOWN 1
-#define RIGHT 2
-#define LEFT 3
-#define DOWNLEFT 4
-#define DOWNRIGHT 5
+#define DOWN 0
+#define DOWNLEFT 1
+#define DOWNRIGHT 2
+#define UP 3
+#define RIGHT 4
+#define LEFT 5
 #define UPLEFT 6
 #define UPRIGHT 7
 #define WHITESQUARE "\u25A0"
@@ -27,7 +27,7 @@ void emptyPlayfield(int playfield[][maxhorizontal]);
 
 int main()
 {
-    int newx, inputcolumn, player, counter;
+    int newx, inputcolumn, player, roundcounter;
     string playername1, playername2;
     bool playbot = false;
     char repeat, querybot;
@@ -38,9 +38,9 @@ int main()
         emptyPlayfield(playfield);
         renderPlayfield(playfield);
         
-        //Reset Player and counter
+        //Reset Player and roundcounter
         player = 2;
-        counter = 0;
+        roundcounter = 0;
         
         //Play against bot?
         cout << "Do you want to play against a bot (He's really bad)?(y|Y) ";
@@ -64,7 +64,7 @@ int main()
         //Game loop
         do {
             //Check for full board
-            if (counter == maxvertikal * maxhorizontal) {
+            if (roundcounter == maxvertikal * maxhorizontal) {
                 cout << "The board is full! No one won." << endl;
                 goto playagain;
             }
@@ -83,23 +83,23 @@ int main()
                 //Ask player for column
                 if (player == 1) {
                     cout << "In which column do you want to place your stone ";
-                    cout << playername1 << "? (1-" << maxhorizontal << ")";
+                    cout << playername1 << "?(1-" << maxhorizontal << ") ";
                     cin >> inputcolumn;
                     inputcolumn--;
                 } else if (player == 2 && !playbot) {
                     cout << "In which column do you want to place your stone ";
-                    cout << playername2 << "? (1-" << maxhorizontal << ")";
+                    cout << playername2 << "?(1-" << maxhorizontal << ") ";
                     cin >> inputcolumn;
                     inputcolumn--;
                 } else if (playbot) {
                     inputcolumn = rand() % maxhorizontal;
                 }
 
-
                 newx = placeStone(playfield, inputcolumn, player);
+
             } while (newx == -1);
 
-            counter++;
+            roundcounter++;
             
         } while (!winCondition(playfield, newx, inputcolumn));
 
@@ -135,7 +135,7 @@ int placeStone(int playfield[maxvertikal][maxhorizontal], int column, int player
                 playfield[i+1][column] = 0;
             playfield[i][column] = player;
             renderPlayfield(playfield);
-            usleep(200000);
+            usleep(100000);
             retval = i;
         }
     }
@@ -177,7 +177,11 @@ void renderPlayfield(int playfield[maxvertikal][maxhorizontal])
 
 bool winCondition(int playfield[maxvertikal][maxhorizontal], int x, int y)
 {
-    for (int i = UP; i <= UPRIGHT; i++) {
+    for (int i = DOWN; i <= UPRIGHT; i++) {
+        //Optimisation: If x < 3 no need to check down since it is impossible
+        if (x < 3 && i < UP)
+            continue;
+
         for (int j = 1; j < 4; j++) {
             if (!checkSpace(playfield, x, y, i, j))
                 break;
@@ -188,7 +192,8 @@ bool winCondition(int playfield[maxvertikal][maxhorizontal], int x, int y)
     return false;
 }
 
-bool checkSpace(int playfield[maxvertikal][maxhorizontal], int x, int y, int direction, int offset)
+bool checkSpace(int playfield[maxvertikal][maxhorizontal],
+        int x, int y, int direction, int offset)
 {
     if (playfield[x][y] == 0)
         return false;
@@ -224,7 +229,7 @@ bool checkSpace(int playfield[maxvertikal][maxhorizontal], int x, int y, int dir
         break;
     case DOWNRIGHT:
         if (y < maxhorizontal - 1 && x > 0)
-            return (playfield[x][y] == playfield[x-offset][y-offset] ? true : false);
+            return (playfield[x][y] == playfield[x-offset][y+offset] ? true : false);
         break;
     }
     return false;
