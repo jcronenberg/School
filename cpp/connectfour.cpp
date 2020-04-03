@@ -6,13 +6,13 @@ using namespace std;
 
 
 #define DOWN 0
-#define DOWNLEFT 1
-#define DOWNRIGHT 2
-#define UP 3
-#define RIGHT 4
-#define LEFT 5
-#define UPLEFT 6
-#define UPRIGHT 7
+#define UP 1
+#define DOWNLEFT 2
+#define UPRIGHT 3
+#define DOWNRIGHT 4
+#define UPLEFT 5
+#define RIGHT 6
+#define LEFT 7
 #define WHITESQUARE "\u25A0"
 #define BLACKSQUARE "\u25FB"
 
@@ -50,6 +50,9 @@ int main()
             playbot = true;
         else
             playbot = false;
+
+        playername1 = WHITESQUARE;
+        playername2 = BLACKSQUARE;
 
         //Ask for player names
         cout << "Input player names:" << endl;
@@ -115,7 +118,7 @@ int main()
             cout << "Congrats " << playername1 << ". YOU WIN!" << endl;
         if (player == 2)
             cout << "Congrats " << playername2 << ". YOU WIN!" << endl;
-        
+
 playagain:
         cout << "Do you want to play again?(y|Y) ";
         cin >> repeat;
@@ -194,17 +197,21 @@ void renderPlayfield(int playfield[maxvertikal][maxhorizontal])
 //Return true if stone at position x, y causes the player to win
 bool winCondition(int playfield[maxvertikal][maxhorizontal], int x, int y)
 {
-    for (int i = DOWN; i <= UPRIGHT; i++) {
-        //Optimisation: If x < 3 no need to check down since it is impossible
-        if (x < 3 && i < UP)
-            continue;
+    int linecounter;
+
+    for (int i = DOWN; i <= LEFT; i++) {
+        if (i % 2 == 0)
+            linecounter = 0;
 
         for (int j = 1; j < 4; j++) {
             if (!checkSpace(playfield, x, y, i, j))
                 break;
-            else if (j == 3)
-                return true;
+            else
+                linecounter++;
+
         }
+        if (linecounter >= 3)
+            return true;
     }
     return false;
 }
@@ -218,35 +225,35 @@ bool checkSpace(int playfield[maxvertikal][maxhorizontal],
 
     switch (direction) {
     case UP:
-        if (x < maxvertikal - 1)
+        if (x + offset <= maxvertikal - 1)
             return (playfield[x][y] == playfield[x+offset][y] ? true : false);
         break;
     case DOWN:
-        if (x > 0)
+        if (x - offset >= 0)
             return (playfield[x][y] == playfield[x-offset][y] ? true : false);
         break;
     case RIGHT:
-        if (y < maxhorizontal - 1)
+        if (y + offset <= maxhorizontal - 1)
             return (playfield[x][y] == playfield[x][y+offset] ? true : false);
         break;
     case LEFT:
-        if (y > 0)
+        if (y - offset >= 0)
             return (playfield[x][y] == playfield[x][y-offset] ? true : false);
         break;
     case UPLEFT:
-        if (y > 0 && x < maxvertikal - 1)
+        if (y - offset >= 0 && x + offset <= maxvertikal - 1)
             return (playfield[x][y] == playfield[x+offset][y-offset] ? true : false);
         break;
     case UPRIGHT:
-        if (y < maxhorizontal - 1 && x < maxvertikal - 1)
+        if (y + offset <= maxhorizontal - 1 && x + offset <= maxvertikal - 1)
             return (playfield[x][y] == playfield[x+offset][y+offset] ? true : false);
         break;
     case DOWNLEFT:
-        if (y > 0 && x > 0)
+        if (y - offset >= 0 && x - offset >= 0)
             return (playfield[x][y] == playfield[x-offset][y-offset] ? true : false);
         break;
     case DOWNRIGHT:
-        if (y < maxhorizontal - 1 && x > 0)
+        if (y + offset <= maxhorizontal - 1 && x - offset >= 0)
             return (playfield[x][y] == playfield[x-offset][y+offset] ? true : false);
         break;
     }
