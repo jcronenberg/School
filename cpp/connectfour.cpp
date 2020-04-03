@@ -38,9 +38,10 @@ int main()
         emptyPlayfield(playfield);
         renderPlayfield(playfield);
         
-        //Reset Player and roundcounter
+        //Reset Variables
         player = 2;
         roundcounter = 0;
+        inputcolumn = 1;
         
         //Play against bot?
         cout << "Do you want to play against a bot (He's really bad)?(y|Y) ";
@@ -81,16 +82,22 @@ int main()
                 }
 
                 //Ask player for column
-                if (player == 1) {
-                    cout << "In which column do you want to place your stone ";
-                    cout << playername1 << "?(1-" << maxhorizontal << ") ";
-                    cin >> inputcolumn;
-                    inputcolumn--;
-                } else if (player == 2 && !playbot) {
-                    cout << "In which column do you want to place your stone ";
-                    cout << playername2 << "?(1-" << maxhorizontal << ") ";
-                    cin >> inputcolumn;
-                    inputcolumn--;
+                if (player == 1 || (player == 2 && !playbot)) {
+                    do {
+                        if (inputcolumn < 0 || inputcolumn > maxhorizontal - 1)
+                            cout << "Invalid column number, try again" << endl;
+
+                        cout << "In which column do you want to place your stone ";
+                        if (player == 1)
+                            cout << playername1;
+                        else
+                            cout << playername2;
+                        cout << "?(1-" << maxhorizontal << ") ";
+                        cin >> inputcolumn;
+                        inputcolumn--;
+
+                    } while (inputcolumn < 0 || inputcolumn > maxhorizontal - 1);
+
                 } else if (playbot) {
                     inputcolumn = rand() % maxhorizontal;
                 }
