@@ -102,6 +102,7 @@ int main()
                     } while (inputcolumn < 0 || inputcolumn > maxhorizontal - 1);
 
                 } else if (playbot) {
+                    srand(time(NULL));
                     inputcolumn = rand() % maxhorizontal;
                 }
 
