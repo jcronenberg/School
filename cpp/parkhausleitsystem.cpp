@@ -56,10 +56,13 @@ void drawPark(void)
 {
     int drawArrowFlag = freeFloor();
 
-    for (int i = 0; i < 19 + 3 * maxSpaces; i++)
+    //draw upper line
+    for (int i = 0; i < 19 + 3 * maxSpaces; i++) {
         cout << "-";
-
+    }
     cout << "\n";
+
+    //draw Parkbox line
     cout << "Parkbox:";
     for (int i = 0; i < maxSpaces; i++) {
         if (i == maxSpaces / 2)
@@ -74,6 +77,7 @@ void drawPark(void)
     }
     cout << "--\n";
 
+    //draw floors
     for (int i = maxFloors - 1; i >= 0; i--) {
         setColor(false);
         cout << "Floor " << i << ":";
@@ -95,9 +99,10 @@ void drawPark(void)
     }
     setColor(false);
 
-    for (int i = 0; i < 19 + 3 * maxSpaces; i++)
+    //draw lower line
+    for (int i = 0; i < 19 + 3 * maxSpaces; i++) {
         cout << "-";
-
+    }
     cout << "\n";
 }
 
