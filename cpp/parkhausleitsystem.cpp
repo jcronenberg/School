@@ -5,23 +5,22 @@ using namespace std;
 #define RED 31
 #define GREEN 32
 
+void fillGarage(int);
 void setColor(int);
 void drawPark(void);
 int freeFloor(void);
 int freeSpace(int);
 void drawArrow(int);
 
-const int maxFloors = 3;
-const int maxSpaces = 10;
+const int maxFloors = 4;
+const int maxSpaces = 12;
 
-int parkingGarage[maxFloors][maxSpaces] = {
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,0},
-};
+int parkingGarage[maxFloors][maxSpaces];
 
 int main()
 {
+    fillGarage(1);
+    parkingGarage[3][10] = 0;
     drawPark();
 }
 
@@ -30,27 +29,51 @@ void setColor(int color)
     cout << "\033[1;" << color << "m";
 }
 
+void fillGarage(int input)
+{
+    for (int i = 0; i < maxFloors; i++)
+        for (int j = 0; j < maxSpaces; j++)
+            parkingGarage[i][j] = input;
+}
+
 void drawArrow(int currFloor)
 {
     int spaceNr = freeSpace(currFloor);
 
     setColor(GREEN);
 
-    if (spaceNr == -1) {
+    if (spaceNr == -1)
         cout << "    ^    ";
-    } else if (spaceNr < maxSpaces / 2) {
+    else if (spaceNr < maxSpaces / 2)
         cout << " <--     ";
-    } else {
+    else
         cout << "     --> ";
-    }
+
+    setColor(false);
 }
 
 void drawPark(void)
 {
     int drawArrowFlag = freeFloor();
 
-    cout << "-------------------------------------------------\n";
-    cout << "Parkbox:-0--1--2--3--4-----------5--6--7--8--9---\n";
+    for (int i = 0; i < 19 + 3 * maxSpaces; i++)
+        cout << "-";
+
+    cout << "\n";
+    cout << "Parkbox:";
+    for (int i = 0; i < maxSpaces; i++) {
+        if (i == maxSpaces / 2)
+            cout << "---------";
+
+        if (i < 10)
+            cout << "-" << i << "-";
+        else if (i < 100)
+            cout << i << "-";
+        else
+            cout << i;
+    }
+    cout << "--\n";
+
     for (int i = maxFloors - 1; i >= 0; i--) {
         setColor(false);
         cout << "Floor " << i << ":";
@@ -71,8 +94,11 @@ void drawPark(void)
         cout << "\n";
     }
     setColor(false);
-    cout << "-------------------------------------------------\n";
 
+    for (int i = 0; i < 19 + 3 * maxSpaces; i++)
+        cout << "-";
+
+    cout << "\n";
 }
 
 int freeFloor(void)
@@ -90,8 +116,8 @@ int freeSpace(int floorNr)
     for (int i = 0; i < maxSpaces / 2; i++) {
         if (!parkingGarage[floorNr][i])
             return i;
-        if (!parkingGarage[floorNr][9 - i])
-            return (9 - i);
+        if (!parkingGarage[floorNr][(maxSpaces - 1) - i])
+            return ((maxSpaces - 1) - i);
     }
 
     return -1;
