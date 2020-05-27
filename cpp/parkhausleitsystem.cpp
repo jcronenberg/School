@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ void drawPark(void);
 int freeFloor(void);
 int freeSpace(int);
 void drawArrow(int);
+void freeParking(int, int, int);
 
 const int maxFloors = 4;
 const int maxSpaces = 12;
@@ -19,9 +21,53 @@ int parkingGarage[maxFloors][maxSpaces];
 
 int main()
 {
-    fillGarage(1);
-    parkingGarage[3][10] = 0;
-    drawPark();
+    char input;
+    int newFloor, newSpace;
+    int inFloor, inSpace;
+
+    while (true) {
+        system("clear");
+        drawPark();
+        if (freeFloor() != -1) {
+            cout << "Enter or leave (e/l)? ";
+            cin >> input;
+        } else {
+            cout << "Parking garage is full! Only leaving is permitted?\n\n";
+            input = 'l';
+        }
+
+        if (input == 'e' || input == 'E') {
+            newFloor = freeFloor();
+            newSpace = freeSpace(newFloor);
+            cout << "Thank you for using our services!" << endl;
+            cout << "Your space is on floor " << newFloor;
+            cout << ", space " << newSpace << endl;
+            cout << "Please follow the arrows!" << endl;
+
+            parkingGarage[newFloor][newSpace] = 1;
+            freeParking(newFloor, newSpace, 10);
+        } else if (input == 'l' || input == 'L') {
+            cout << "Where is your car parked?" << endl;
+            cout << "Floor (0-" << maxFloors - 1 << ")?";
+            cin >> inFloor;
+            cout << "Space (0-" << maxSpaces - 1 << ")?";
+            cin >> inSpace;
+
+
+            if (parkingGarage[inFloor][inSpace] == 1) {
+                freeParking(inFloor, inSpace, 10);
+
+                cout << "We hope you had a good stay! Goodbye" << endl;
+                parkingGarage[inFloor][inSpace] = 0;
+            } else {
+                cout << "Sorry, there is no car parked at this space!" << endl;
+            }
+        } else {
+            cout << "Unknown option!" << endl;
+        }
+        getchar();
+        getchar();
+    }
 }
 
 void setColor(int color)
@@ -29,18 +75,53 @@ void setColor(int color)
     cout << "\033[1;" << color << "m";
 }
 
-void fillGarage(int input)
+void freeParking(int floor, int space, int freeTime)
 {
-    for (int i = 0; i < maxFloors; i++)
-        for (int j = 0; j < maxSpaces; j++)
-            parkingGarage[i][j] = input;
+    static bool initializeArrival = true;
+    static long arrival[maxFloors][maxSpaces];
+    long newTime = time(NULL);
+
+    if (initializeArrival) {
+        initializeArrival = false;
+        for (int i = 0; i < maxFloors; i++) {
+            for (int j = 0; j < maxSpaces; j++) {
+                arrival[i][j] = 0;
+            }
+        }
+    }
+
+    if (arrival[floor][space] == 0) {
+        arrival[floor][space] = newTime;
+    } else {
+        if (newTime - arrival[floor][space] > freeTime) {
+            setColor(RED);
+            cout << "You have to pay for ";
+            cout << (newTime - freeTime - arrival[floor][space]) / 60 + 1;
+            cout << " minutes." << endl;
+            setColor(false);
+
+            arrival[floor][space] = 0;
+
+            getchar();
+            getchar();
+        } else {
+            setColor(GREEN);
+            cout << "Free Parking!" << endl;
+            setColor(false);
+        }
+    }
 }
 
 void drawArrow(int currFloor)
 {
-    int spaceNr = freeSpace(currFloor);
-
     setColor(GREEN);
+
+    if (currFloor != freeFloor()) {
+        cout << "    ^    ";
+        return;
+    }
+
+    int spaceNr = freeSpace(currFloor);
 
     if (spaceNr == -1)
         cout << "    ^    ";
