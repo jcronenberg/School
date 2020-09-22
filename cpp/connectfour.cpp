@@ -32,17 +32,17 @@ int main()
     bool playbot = false;
     char repeat, querybot;
     int playfield[maxvertikal][maxhorizontal];
-    
+
     //Playloop
     do {
         emptyPlayfield(playfield);
         renderPlayfield(playfield);
-        
+
         //Reset Variables
         player = 2;
         roundcounter = 0;
         inputcolumn = 1;
-        
+
         //Play against bot?
         cout << "Do you want to play against a bot (He's really bad)?(y|Y) ";
         cin >> querybot;
@@ -111,7 +111,7 @@ int main()
             } while (newx == -1);
 
             roundcounter++;
-            
+
         } while (!winCondition(playfield, newx, inputcolumn));
 
         //Win message
