@@ -33,10 +33,10 @@ int main()
         case 0:
             cout << "Beende..." << endl;
             return 0;
-        case 1: 
+        case 1:
             chessPattern(chessboard);
             break;
-        case 2: 
+        case 2:
             startingPositions(chessboard);
             break;
         default:
