@@ -15,16 +15,16 @@ int main ()
     int tmp, iterations = 0;
 
     //HIER bitte Ihren Sortieralgorithmus implementieren
-    while (!sorted) {
-        iterations++;
+    for (int j = 0; j < array_laenge - 1 && !sorted; j++) {
         sorted = true;
-        for (int i = 0; i < array_laenge - 1; i++) {
+        for (int i = 0; i < array_laenge - 1 - j; i++) {
             if (parkkarten_ids[i] > parkkarten_ids[i+1]) {
                 tmp = parkkarten_ids[i];
                 parkkarten_ids[i] = parkkarten_ids[i+1];
                 parkkarten_ids[i+1] = tmp;
                 sorted = false;
             }
+            iterations++;
         }
     }
 
