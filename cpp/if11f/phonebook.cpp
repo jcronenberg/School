@@ -14,6 +14,73 @@ const int max_entries = 100;
 phone_book yellow_pages[max_entries];
 int cur_id = 0;
 
+// Prototypes
+int menu();
+void print_entry(int);
+void print_list();
+bool new_entry();
+bool search_entry(string);
+void test_data();
+bool delete_entry(int);
+void shift_entries(int);
+void switch_entries(int);
+bool sort_entries(string);
+
+int main()
+{
+    test_data();
+    int selection = 0;
+    do {
+        selection = menu();
+
+        string s_input;
+        int i_input;
+
+        switch (selection) {
+        case 1:
+            print_list();
+            break;
+        case 2:
+            if (new_entry())
+                cout << "Successfully added new entry!\n";
+            else
+                cout << "Sorry, couldn't add a new entry!\n";
+
+            break;
+        case 3:
+            cout << "What Name or Number do you want to search for? ";
+            cin >> s_input;
+            if (!search_entry(s_input))
+              cout << "Couldn't find a matching entry\n";
+            break;
+        case 4:
+            cout << "What id do you want to delete? ";
+            cin >> i_input;
+
+            if (!delete_entry(i_input)) {
+                cout << "id doesn't exist\n";
+            }
+            else {
+                cout << "Successfully deleted entry " << i_input << endl;
+                shift_entries(i_input);
+            }
+
+            break;
+        case 5:
+            sort_entries("name");
+            break;
+        case 6:
+            sort_entries("id");
+            break;
+        case 7:
+            break;
+        default:
+            cout << "Not a valid selection. Try again\n";
+        }
+    } while (selection != 7);
+}
+
+// Functions
 int menu()
 {
     cout << "My Phone Book:\n";
@@ -122,9 +189,8 @@ bool delete_entry(int id)
 void shift_entries(int id)
 {
     for (int i = id; i < cur_id; i++) {
-        yellow_pages[i - 1].id = yellow_pages[i].id - 1;
-        yellow_pages[i - 1].last_name = yellow_pages[i].last_name;
-        yellow_pages[i - 1].phone_number = yellow_pages[i].phone_number;
+        yellow_pages[i - 1] = yellow_pages[i];
+        yellow_pages[i - 1].id -= 1;
     }
 
     yellow_pages[cur_id].id = 0;
@@ -141,6 +207,7 @@ void switch_entries(int index)
     yellow_pages[index + 1] = tmp;
 }
 
+// sel can be "name" or "id" otherwise it returns false
 bool sort_entries(string sel)
 {
     bool sorted = false;
@@ -164,58 +231,4 @@ bool sort_entries(string sel)
         }
     }
     return true;
-}
-
-int main()
-{
-    test_data();
-    int selection = 0;
-    do {
-        selection = menu();
-
-        string s_input;
-        int i_input;
-
-        switch (selection) {
-        case 1:
-            print_list();
-            break;
-        case 2:
-            if (new_entry())
-                cout << "Successfully added new entry!\n";
-            else
-                cout << "Sorry, couldn't add a new entry!\n";
-
-            break;
-        case 3:
-            cout << "What Name or Number do you want to search for? ";
-            cin >> s_input;
-            if (!search_entry(s_input))
-              cout << "Couldn't find a matching entry\n";
-            break;
-        case 4:
-            cout << "What id do you want to delete? ";
-            cin >> i_input;
-
-            if (!delete_entry(i_input)) {
-                cout << "id doesn't exist\n";
-            }
-            else {
-                cout << "Successfully deleted entry " << i_input << endl;
-                shift_entries(i_input);
-            }
-
-            break;
-        case 5:
-            sort_entries("name");
-            break;
-        case 6:
-            sort_entries("id");
-            break;
-        case 7:
-            break;
-        default:
-            cout << "Not a valid selection. Try again\n";
-        }
-    } while (selection != 7);
 }
