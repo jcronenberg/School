@@ -25,6 +25,7 @@ bool delete_entry(int);
 void shift_entries(int);
 void switch_entries(int);
 bool sort_entries(string);
+void empty_entry(int);
 
 int main()
 {
@@ -37,9 +38,11 @@ int main()
         int i_input;
 
         switch (selection) {
+        // Print phone book
         case 1:
             print_list();
             break;
+        // Enter new entry
         case 2:
             if (new_entry())
                 cout << "Successfully added new entry!\n";
@@ -47,12 +50,14 @@ int main()
                 cout << "Sorry, couldn't add a new entry!\n";
 
             break;
+        // Search for name or number
         case 3:
             cout << "What Name or Number do you want to search for? ";
             cin >> s_input;
             if (!search_entry(s_input))
               cout << "Couldn't find a matching entry\n";
             break;
+        // Delete entry
         case 4:
             cout << "What id do you want to delete? ";
             cin >> i_input;
@@ -66,12 +71,15 @@ int main()
             }
 
             break;
+        // Sort phone book by name
         case 5:
             sort_entries("name");
             break;
+        // Sort phone book by id
         case 6:
             sort_entries("id");
             break;
+        // Quit
         case 7:
             break;
         default:
@@ -111,8 +119,10 @@ void print_entry(int index)
 void print_list()
 {
     for (int i = 0; i < cur_id; i++) {
-        print_entry(i);
-        cout << "\n";
+        if (!yellow_pages[i].last_name.empty()) {
+            print_entry(i);
+            cout << "\n";
+        }
     }
 }
 
@@ -179,9 +189,7 @@ bool delete_entry(int id)
     if (id > cur_id || id < 1)
         return false;
 
-    yellow_pages[id - 1].id = 0;
-    yellow_pages[id - 1].last_name = "";
-    yellow_pages[id - 1].phone_number = "";
+    empty_entry(id - 1);
 
     return true;
 }
@@ -190,12 +198,9 @@ void shift_entries(int id)
 {
     for (int i = id; i < cur_id; i++) {
         yellow_pages[i - 1] = yellow_pages[i];
-        yellow_pages[i - 1].id -= 1;
     }
 
-    yellow_pages[cur_id].id = 0;
-    yellow_pages[cur_id].last_name = "";
-    yellow_pages[cur_id].phone_number = "";
+    empty_entry(cur_id);
     cur_id--;
 }
 
@@ -207,18 +212,18 @@ void switch_entries(int index)
     yellow_pages[index + 1] = tmp;
 }
 
-// sel can be "name" or "id" otherwise it returns false
-bool sort_entries(string sel)
+// sort_by can be "name" or "id" otherwise it returns false
+bool sort_entries(string sort_by)
 {
     bool sorted = false;
     for (int j = 0; j < cur_id - 1 && !sorted; j++) {
         sorted = true;
         for (int i = 0; i < cur_id - 1 - j; i++) {
             int comp_1, comp_2;
-            if (sel == "name") {
+            if (sort_by == "name") {
                 comp_1 = yellow_pages[i].last_name[0];
                 comp_2 = yellow_pages[i + 1].last_name[0];
-            } else if (sel == "id") {
+            } else if (sort_by == "id") {
                 comp_1 = yellow_pages[i].id;
                 comp_2 = yellow_pages[i + 1].id;
             } else {
@@ -231,4 +236,11 @@ bool sort_entries(string sel)
         }
     }
     return true;
+}
+
+void empty_entry(int id)
+{
+    yellow_pages[id].id = 0;
+    yellow_pages[id].last_name = "";
+    yellow_pages[id].phone_number = "";
 }
