@@ -7,26 +7,34 @@ void char_to_ascii(char *, int, bool);
 void sorted_output(int *, int);
 int highest_value(int *, int);
 void sort_arr(int *, int);
+int menu(bool *, int);
+void manual_input_chars(char *, int *);
+void fill_with_test_values(char *, int);
 
 int main()
 {
-    const int length = 58;
+    int length = 58;
     char characters[length];
-    char input;
     bool sort = false;
 
-    // for testing, fill characters with all ascii value from A - z
-    for (int i = 0; i < length; i++) {
-        characters[length - 1- i] = (char)(i + 65);
+    int sel = menu(&sort, length);
+
+    switch (sel) {
+
+    // manual input
+    case 1:
+        manual_input_chars(characters, &length);
+        break;
+
+    // preset
+    case 2:
+        fill_with_test_values(characters, length);
+        break;
+
+    default:
+        cout << "WEIRD! This really shouldn't happen\n";
     }
 
-    // ask if output should be sorted
-    do {
-        cout << "Do you want to sort by ASCII-Value (ascending)?(y/n) ";
-        cin >> input;
-    } while (!(input == 'y' || input == 'n'));
-    if (input == 'y')
-        sort = true;
 
     char_to_ascii(characters, length, sort);
 }
@@ -107,4 +115,64 @@ int highest_value(int *arr, int length)
     }
 
     return tmp;
+}
+
+// show a menu and return the selection
+// parameters: sort, gets set to true if the user selects they want the array to be sorted, otherwise untouched
+//             length, length of the characters array
+int menu(bool *sort, int length)
+{
+    char c_input;
+
+    // ask if output should be sorted
+    do {
+        cout << "Do you want to sort by ASCII-Value (ascending)?(y/n) ";
+        cin >> c_input;
+    } while (!(c_input == 'y' || c_input == 'n'));
+    if (c_input == 'y')
+        *sort = true;
+
+    int i_input;
+
+    // ask if manual input or preset
+    do {
+        cout << "Do you want to manually input characters (max: " << length << ") (1)\n";
+        cout << "Or do you want to use a preset (All characters from A-z in "
+                "reverse order) (2)\n";
+        cin >> i_input;
+    } while (i_input > 2 || i_input < 1);
+    return i_input;
+}
+
+// manual input of characters into characters array
+// parameters: characters, array that gets written into
+//             length, max length of characters array, gets changed to the index of the last char if user exist prematurely
+void manual_input_chars(char *characters, int *length)
+{
+    char input;
+
+    cout << "If you want to stop inputting characters, input a '?'\n";
+    for (int i = 0; i < *length; i++) {
+        cout << "Input char: ";
+        cin >> characters[i];
+        if (characters[i] == '?') {
+            cout << "If you want to add '?' to the array input 'a' now, everything "
+                    "else will stop adding characters ";
+            cin >> input;
+            if (input != 'a') {
+                *length = i;
+                break;
+            }
+        }
+    }
+}
+
+// fill array with preset values
+// parameters: characters, array that gets written into
+//             length, length of characters array
+void fill_with_test_values(char *characters, int length)
+{
+    for (int i = 0; i < length; i++) {
+        characters[length - 1 - i] = (char)(i + 65);
+    }
 }
