@@ -5,7 +5,7 @@ using namespace std;
 // prototypes
 void input_readings(unsigned int *, unsigned int *);
 void output_readings(unsigned int *, unsigned int);
-float calculate_median(unsigned int *, unsigned int);
+float calculate_average(unsigned int *, unsigned int);
 
 int main()
 {
@@ -49,10 +49,10 @@ void output_readings(unsigned int *readings, unsigned int length)
         cout << "Reading " << i + 1 << " is: " << readings[i] << "\n";
     }
 
-    cout << "Median value: " << calculate_median(readings, length) << "\n";
+    cout << "Average value: " << calculate_average(readings, length) << "\n";
 }
 
-float calculate_median(unsigned int *readings, unsigned int length)
+float calculate_average(unsigned int *readings, unsigned int length)
 {
     unsigned int sum = 0;
 

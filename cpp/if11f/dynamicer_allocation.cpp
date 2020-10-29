@@ -1,3 +1,7 @@
+// This isn't an optimal solutions as it always copies the memory
+// so at one point there is always double the memory allocated
+// and also it gets very slow with huge datasets
+// this was just the first solution i thought of
 #include <iostream>
 
 using namespace std;
@@ -5,7 +9,7 @@ using namespace std;
 // prototypes
 unsigned int *input_readings(unsigned int *);
 void output_readings(unsigned int *, unsigned int);
-float calculate_median(unsigned int *, unsigned int);
+float calculate_average(unsigned int *, unsigned int);
 unsigned int *allocate_one_more(unsigned int *, unsigned int);
 
 int main()
@@ -48,10 +52,10 @@ void output_readings(unsigned int *readings, unsigned int length)
         cout << "Reading " << i + 1 << " is: " << readings[i] << "\n";
     }
 
-    cout << "Median value: " << calculate_median(readings, length) << "\n";
+    cout << "Average value: " << calculate_average(readings, length) << "\n";
 }
 
-float calculate_median(unsigned int *readings, unsigned int length)
+float calculate_average(unsigned int *readings, unsigned int length)
 {
     unsigned int sum = 0;
 
