@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -9,6 +10,7 @@ struct reading
 	int current;
 };
 
+reading *read_readings(int *, string);
 reading *readings_random(int);
 void output_readings(reading *, int);
 void output_readings_interval(reading *, int, int, int);
@@ -16,14 +18,14 @@ int battery_charge(reading *, int);
 int battery_discharge(reading *, int);
 int battery_level(int, int);
 void output_false_readings(reading *, int);
+reading *allocate_one_more(reading *, int);
 
 int main()
 {
     int length;
-    cout << "Input amount of readings: ";
-    cin >> length;
 
-    reading *readings = readings_random(length);
+    // reading *readings = readings_random(length);
+    reading *readings = read_readings(&length, "readings.txt");
 
     output_readings(readings, length);
 
@@ -52,6 +54,29 @@ int main()
 
     delete[] readings;
     readings = nullptr;
+}
+
+reading *read_readings(int *length, string filename)
+{
+    int index = 0;
+    ifstream readfile;
+    reading *readings = nullptr;
+    readfile.open(filename);
+
+    if (!readfile) {
+        cout << "Couldn't read file: " << filename << "\nExiting...\n";
+        exit(1);
+    } else {
+        while (!readfile.eof()) {
+            readings = allocate_one_more(readings, index);
+            readfile >> readings[index].timestamp >> readings[index].voltage >> readings[index].current;
+            index++;
+        }
+        readfile.close();
+    }
+    *length = index - 1;
+
+    return readings;
 }
 
 reading *readings_random(int length)
@@ -141,4 +166,17 @@ void output_false_readings(reading *readings, int length)
             cout << "False reading at position: " << i + 1 << "\n";
         }
     }
+}
+
+reading *allocate_one_more(reading *readings, int length)
+{
+    reading *new_readings = new reading[length + 1];
+
+    if (length > 0) {
+        for (int i = 0; i < length; i++) {
+            new_readings[i] = readings[i];
+        }
+        delete[] readings;
+    }
+    return new_readings;
 }
