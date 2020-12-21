@@ -10,7 +10,7 @@ struct reading
 	int current;
 };
 
-reading *read_readings(int *, string);
+void read_append_readings(reading *&, int *, string);
 reading *readings_random(int);
 void output_readings(reading *, int);
 void output_readings_interval(reading *, int, int, int);
@@ -19,48 +19,52 @@ int battery_discharge(reading *, int);
 int battery_level(int, int);
 void output_false_readings(reading *, int);
 reading *allocate_one_more(reading *, int);
+void write_readings(reading *, int, string );
 
 int main()
 {
-    int length;
+    int length = 0;
+    reading *readings = nullptr;
 
     // reading *readings = readings_random(length);
-    reading *readings = read_readings(&length, "readings.txt");
+    read_append_readings(readings, &length, "input_readings.txt");
+    read_append_readings(readings, &length, "input_readings2.txt");
 
     output_readings(readings, length);
 
-    int start, end;
+    write_readings(readings, length, "output_readings.txt");
 
-    cout << "Output readings in an interval\n";
+    // int start, end;
 
-    cout << "What's the startpoint? (1 - " << length << ")";
-    cin >> start;
-    start--;
+    // cout << "Output readings in an interval\n";
 
-    cout << "What's the endpoint? (1 - " << length << ")";
-    cin >> end;
+    // cout << "What's the startpoint? (1 - " << length << ")";
+    // cin >> start;
+    // start--;
 
-    output_readings_interval(readings, start, end, length);
+    // cout << "What's the endpoint? (1 - " << length << ")";
+    // cin >> end;
 
-    int positive_charge = battery_charge(readings, length);
-    int discharge = battery_discharge(readings, length);
+    // output_readings_interval(readings, start, end, length);
 
-    cout << "Battery positive charge: " << positive_charge << " mAh\n";
-    cout << "Battery discharge: " << discharge << " mAh\n";
-    cout << "Overall battery level: " << battery_level(positive_charge, discharge) << " mAh\n\n";
+    // int positive_charge = battery_charge(readings, length);
+    // int discharge = battery_discharge(readings, length);
 
-    cout << "False readings:\n";
-    output_false_readings(readings, length);
+    // cout << "Battery positive charge: " << positive_charge << " mAh\n";
+    // cout << "Battery discharge: " << discharge << " mAh\n";
+    // cout << "Overall battery level: " << battery_level(positive_charge, discharge) << " mAh\n\n";
+
+    // cout << "False readings:\n";
+    // output_false_readings(readings, length);
 
     delete[] readings;
     readings = nullptr;
 }
 
-reading *read_readings(int *length, string filename)
+void read_append_readings(reading *&readings, int *length, string filename)
 {
-    int index = 0;
+    int index = *length;
     ifstream readfile;
-    reading *readings = nullptr;
     readfile.open(filename);
 
     if (!readfile) {
@@ -75,8 +79,24 @@ reading *read_readings(int *length, string filename)
         readfile.close();
     }
     *length = index - 1;
+}
 
-    return readings;
+void write_readings(reading *readings, int length, string filename)
+{
+    ofstream writefile;
+    writefile.open(filename);
+
+    if (!writefile) {
+        cout << "Couldn't read file: " << filename << "\nExiting...\n";
+        exit(1);
+    } else {
+        for (int i = 0; i < length; i++) {
+            writefile << readings[i].timestamp << " ";
+            writefile << readings[i].voltage << " ";
+            writefile << readings[i].current << "\n";
+        }
+        writefile.close();
+    }
 }
 
 reading *readings_random(int length)
