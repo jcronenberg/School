@@ -1,0 +1,32 @@
+<form action="order.php" method="post">
+    <p>What car do you want?</p>
+    <select name="cmbCar">
+        <option value="Volvo">
+            Volvo
+        </option>
+        <option value="Saab">
+            Saab
+        </option>
+        <option value="Opel">
+            Opel
+        </option>
+        <option value="Audi">
+            Audi
+        </option>
+    </select>
+    <p>
+        <input name="chkAgreement" type="checkbox" value="agreed"/>
+        <label>The driver is older than 25</label>
+    </p>
+    <p>When do you need the car?</p>
+    <input name="dtDate" type="date" min="2021-01-01" max="2021-12-31" />
+    <p>What is your preferred payment method?</p>
+    <input name="optPayment" type="radio" value="Mastercard"/>
+    <label>Mastercard</label>
+    <input name="optPayment" type="radio" value="Visa"/>
+    <label>Visa</label>
+    <input name="optPayment" type="radio" value="American Express"/>
+    <label>American Express</label>
+    <br/>
+    <input type="submit" name="btnSubmit" value="Send">
+</form>
