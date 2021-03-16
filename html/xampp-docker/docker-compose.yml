@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  myXampp:
+    container_name: "xampp"
+    image: "tomsik68/xampp"
+    ports:
+      - "3001:22"
+      - "3000:80"
+    volumes:
+      - "../nettmann2:/www/nettmann2"
+      - "../nettmann:/www/nettmann"
+      - "../../sql/databases:/var/databases"
+      - "./apache_conf:/opt/lampp/apache2/conf.d"
