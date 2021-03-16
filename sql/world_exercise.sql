@@ -68,3 +68,12 @@ ORDER BY
     population DESC;
 
 SELECT name FROM country WHERE population > 50000000;
+
+SELECT lifeexpectancy FROM country WHERE name = 'finland';
+
+SELECT
+    avg(lifeexpectancy)
+FROM
+    country
+WHERE
+    continent = 'Europe';
