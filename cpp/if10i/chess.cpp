@@ -6,7 +6,7 @@ using namespace std;
 #define BLACKSQUARE "\u25FB"
 #define WHITEPAWN "\u265F"
 #define BLACKPAWN "\u2659"
-const string whitestartrow[8] = { "\u265C", "\u265E", "\u265D", "\u265B", 
+const string whitestartrow[8] = { "\u265C", "\u265E", "\u265D", "\u265B",
                                   "\u265A", "\u265D", "\u265E", "\u265C" };
 
 const string blackstartrow[8] = { "\u2656", "\u2658", "\u2657", "\u2655",

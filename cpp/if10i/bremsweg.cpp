@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	
+
 	float anhalteweg = 0;
 	float geschwindigkeit = 0;
 	float weg = 0;
