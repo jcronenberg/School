@@ -45,9 +45,9 @@ FROM
             = Schiffstyp.ID_Schiffstyp
 WHERE
     Abfahrtsdatum LIKE "2020-%"
-    AND sum(Schiffstyp.Ladungskapazität) > 100000
 GROUP BY
     Abfahrtshafen;
+HAVING sum(Schiffstyp.Ladungskapazität) > 100000
 
 CREATE TABLE Pilot(
   ID_Pilot INT PRIMARY KEY auto_increment,
@@ -63,6 +63,22 @@ CREATE TABLE Flug(
   Abflugsdatum DATE NOT NULL,
   Luftfahrzeugkennzeichen VARCHAR(30) NOT NULL,
   ID_Pilot INT,
+  CONSTRAINT fk_pilot
+  FOREIGN KEY (ID_Pilot) REFERENCES Pilot (ID_Pilot)
+);
+
+
+-- new
+CREATE TABLE Flug(
+  ID_Flug INT PRIMARY KEY auto_increment,
+  Startflughafen VARCHAR(30) NOT NULL,
+  Zielflughafen VARCHAR(30) NOT NULL,
+  Strecke FLOAT,
+  Abflugsdatum DATE NOT NULL,
+  Luftfahrzeugkennzeichen VARCHAR(30) NOT NULL,
+  CONSTRAINT fk_kennzeichen
+  FOREIGN KEY (Luftfahrzeugkennzeichen) REFERENCES Flotte (Luftfahrzeugkennzeichen)
+  ID_Pilot INT NOT NULL,
   CONSTRAINT fk_pilot
   FOREIGN KEY (ID_Pilot) REFERENCES Pilot (ID_Pilot)
 );
