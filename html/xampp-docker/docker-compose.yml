@@ -9,5 +9,6 @@ services:
     volumes:
       - "../nettmann2:/www/nettmann2"
       - "../nettmann:/www/nettmann"
+      - "../calculator:/www/calculator"
       - "../../sql/databases:/var/databases"
       - "./apache_conf:/opt/lampp/apache2/conf.d"
