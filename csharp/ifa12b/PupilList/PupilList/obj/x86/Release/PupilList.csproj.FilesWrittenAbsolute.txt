@@ -1,0 +1,5 @@
+/home/jorik/git/Berufsschule/csharp/ifa12b/PupilList/PupilList/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/jorik/git/Berufsschule/csharp/ifa12b/PupilList/PupilList/bin/Release/PupilList.pdb
+/home/jorik/git/Berufsschule/csharp/ifa12b/PupilList/PupilList/bin/Release/PupilList.exe
+/home/jorik/git/Berufsschule/csharp/ifa12b/PupilList/PupilList/obj/x86/Release/PupilList.exe
+/home/jorik/git/Berufsschule/csharp/ifa12b/PupilList/PupilList/obj/x86/Release/PupilList.pdb

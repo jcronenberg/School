@@ -5,6 +5,7 @@
 !Makefile
 .*
 *.png
+*.exe
 /cpp/if11f/output_readings.txt
 /sql/databases/wetterdaten_BT.sql
 /sql/databases/world.sql
