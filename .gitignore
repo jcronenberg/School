@@ -5,6 +5,15 @@
 !Makefile
 .*
 *.png
+*.exe
+/csharp/ifa12b/PupilList/Makefile
+/csharp/ifa12b/PupilList/Makefile.in
+/csharp/ifa12b/PupilList/PupilList/Makefile
+/csharp/ifa12b/PupilList/PupilList/Makefile.in
+/csharp/ifa12b/PupilList/PupilList/bin/
+/csharp/ifa12b/PupilList/aclocal.m4
+/csharp/ifa12b/PupilList/config.*
+/csharp/ifa12b/PupilList/autom4te.cache/
 /cpp/if11f/output_readings.txt
 /sql/databases/wetterdaten_BT.sql
 /sql/databases/world.sql
