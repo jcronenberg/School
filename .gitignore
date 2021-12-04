@@ -25,3 +25,5 @@
 /csharp/ifa12b/Stack/aclocal.m4
 /csharp/ifa12b/Stack/config.*
 /csharp/ifa12b/Stack/autom4te.cache/
+/csharp/ifa12b/StackGodot/Export/
+/csharp/ifa12b/StackGodot/export_presets.cfg
