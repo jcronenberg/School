@@ -1,0 +1,6 @@
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/obj/x86/Debug/Stack.gtk-gui.gui.stetic
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/bin/Debug/Stack.pdb
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/bin/Debug/Stack.exe
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/obj/x86/Debug/Stack.exe
+/home/jorik/git/Berufsschule/csharp/ifa12b/Stack/Stack/obj/x86/Debug/Stack.pdb
