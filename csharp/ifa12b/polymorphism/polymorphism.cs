@@ -56,7 +56,6 @@ public class Einheit
 	{
         Console.WriteLine($"Einheit fügt {Angriff} Schaden dem Gegner \"{gegner.Name}\" zu");
     }
-
 }
 
 public class Bogenschuetze : Einheit
