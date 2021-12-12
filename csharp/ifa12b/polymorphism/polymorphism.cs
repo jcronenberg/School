@@ -32,7 +32,10 @@ public class Program
 
         for (int i = 0; i < armysize; i++)
         {
+			// Version 1
             Armee[i].kampf();
+			// Version 2
+            // Armee[i].kampf(Armee[(i + rnd.Next(armysize)) % armysize]);
         }
     }
 }
@@ -44,8 +47,14 @@ public class Einheit
     public int Verteidigung;
     public float Reichweite;
 
-    public virtual void kampf() {
+    public virtual void kampf()
+	{
         Console.WriteLine($"Einheit fügt {Angriff} Schaden zu");
+    }
+
+	public virtual void kampf(Einheit gegner)
+	{
+        Console.WriteLine($"Einheit fügt {Angriff} Schaden dem Gegner \"{gegner.Name}\" zu");
     }
 
 }
@@ -53,8 +62,14 @@ public class Einheit
 public class Bogenschuetze : Einheit
 {
     public int AnzahlPfeile = 0;
-    public override void kampf() {
+    public override void kampf()
+	{
         Console.WriteLine($"Bogenschütze \"{Name}\" hat {AnzahlPfeile} Pfeile und schießt über {Reichweite} m und fügt {Angriff} Schaden zu");
+    }
+
+    public override void kampf(Einheit gegner)
+    {
+        Console.WriteLine($"Bogenschütze \"{Name}\" hat {AnzahlPfeile} Pfeile und schießt über {Reichweite} m und fügt {Angriff} Schaden dem Gegner \"{gegner.Name}\" zu");
     }
 
     public Bogenschuetze(int a)
