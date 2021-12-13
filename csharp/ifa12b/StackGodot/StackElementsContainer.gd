@@ -29,7 +29,7 @@ func draw_push(element: int):
 	var instance_id = stack_size - 1 - stack_counter
 
 	# set color and text for instance
-	stack_instances[instance_id].get_node("ColorRect").color = Color(0, 1, 0)
+	stack_instances[instance_id].get_node("ColorRect").color = Color(1, 0, 0)
 	stack_instances[instance_id].get_node("ColorRect/Label").text = str(element)
 
 	# advance stack_counter
@@ -40,7 +40,7 @@ func draw_pop():
 	var instance_id = stack_size - stack_counter;
 
 	# set color and text for instance
-	stack_instances[instance_id].get_node("ColorRect").color = Color(1, 0, 0)
+	stack_instances[instance_id].get_node("ColorRect").color = Color(0, 1, 0)
 	stack_instances[instance_id].get_node("ColorRect/Label").text = ""
 
 	# advance stack_counter
