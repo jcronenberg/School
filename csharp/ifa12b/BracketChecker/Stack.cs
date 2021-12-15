@@ -15,12 +15,12 @@ namespace Stack
 			maxSize = size;
 		}
 
-		public int getCounter()
+		public int GetCounter()
 		{
 			return counter;
 		}
 
-		public int pop()
+		public int Pop()
 		{
 			if (counter > 0)
 			{
@@ -30,7 +30,7 @@ namespace Stack
 			return 0;
 		}
 
-		public bool push(int element)
+		public bool Push(int element)
 		{
 			if (counter == maxSize)
 				return false;
