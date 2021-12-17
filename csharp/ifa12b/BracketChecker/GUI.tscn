@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://GUI.cs" type="Script" id=1]
 [ext_resource path="res://font/font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://style/ErrorCountStyle.tres" type="StyleBox" id=3]
 
 [node name="GUI" type="Control"]
 anchor_right = 1.0
@@ -64,26 +65,35 @@ margin_bottom = 24.0
 rect_min_size = Vector2( 100, 20 )
 text = "Check brackets"
 
-[node name="ColorIndicator" type="ColorRect" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
-margin_left = 128.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-color = Color( 0, 1, 0, 1 )
-
 [node name="ErrorCount" type="LineEdit" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
-margin_left = 172.0
-margin_right = 322.0
+margin_left = 128.0
+margin_right = 198.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 150, 20 )
-text = "Number of errors:"
+rect_min_size = Vector2( 70, 20 )
+custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
+custom_styles/read_only = ExtResource( 3 )
+text = "Errors:"
 editable = false
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
-margin_left = 342.0
-margin_right = 498.0
+[node name="Filler" type="Control" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
+margin_left = 218.0
+margin_right = 634.0
 margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CheckAutomatically" type="CheckBox" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
+margin_left = 654.0
+margin_right = 810.0
+margin_bottom = 24.0
+pressed = true
 text = "Check automatically"
+
+[node name="CheckErrorMessages" type="CheckBox" parent="VBoxContainer/MarginMiddle/HBoxContainer"]
+margin_left = 830.0
+margin_right = 994.0
+margin_bottom = 24.0
+pressed = true
+text = "Show error messages"
 
 [node name="MarginBottom" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 525.0
@@ -104,4 +114,5 @@ readonly = true
 
 [connection signal="text_changed" from="VBoxContainer/MarginText/TextEdit" to="." method="_on_TextEdit_text_changed"]
 [connection signal="pressed" from="VBoxContainer/MarginMiddle/HBoxContainer/ValidityButton" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginMiddle/HBoxContainer/CheckBox" to="." method="_on_CheckBox_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginMiddle/HBoxContainer/CheckAutomatically" to="." method="_on_CheckBox_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginMiddle/HBoxContainer/CheckErrorMessages" to="." method="_on_CheckErrorMessages_pressed"]

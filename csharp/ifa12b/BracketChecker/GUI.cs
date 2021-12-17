@@ -6,17 +6,19 @@ public class GUI : Control
 {
 	private Parser.Parser GuiParser = new Parser.Parser();
 	private TextEdit TextField;
-	private ColorRect Indicator;
 	private LineEdit ErrorCount;
 	private TextEdit ErrorMessages;
-	private bool CheckAutomatically = false;
+	private StyleBoxFlat ErrorCountStyle;
+	private MarginContainer ErrorMessagesContainer;
+	private bool CheckAutomatically = true;
 
 	public override void _Ready()
 	{
 		TextField = (TextEdit)GetNode("VBoxContainer/MarginText/TextEdit");
-		Indicator = (ColorRect)GetNode("VBoxContainer/MarginMiddle/HBoxContainer/ColorIndicator");
 		ErrorCount = (LineEdit)GetNode("VBoxContainer/MarginMiddle/HBoxContainer/ErrorCount");
 		ErrorMessages = (TextEdit)GetNode("VBoxContainer/MarginBottom/ErrorMessages");
+		ErrorCountStyle = (StyleBoxFlat)GD.Load("style/ErrorCountStyle.tres");
+		ErrorMessagesContainer = (MarginContainer)GetNode("VBoxContainer/MarginBottom");
 	}
 
 	private void _on_Button_pressed()
@@ -24,16 +26,16 @@ public class GUI : Control
 		GuiParser.SetInput(TextField.Text);
 		if (GuiParser.CheckValid())
 		{
-			Indicator.Color = new Color(0, 1, 0);
+			ErrorCountStyle.BgColor = new Color(0, 1, 0);
 			ErrorMessages.Text = "";
 			ClearSafeLines();
 		}
 		else
 		{
-			Indicator.Color = new Color(1, 0, 0);
+			ErrorCountStyle.BgColor = new Color(1, 0, 0);
 			HandleErrorMessages(GuiParser.GetParserErrors());
 		}
-		ErrorCount.Text = $"Number of errors: {GuiParser.GetErrorCount()}";
+		ErrorCount.Text = $"Errors: {GuiParser.GetErrorCount()}";
 	}
 
 	private void _on_CheckBox_pressed()
@@ -52,7 +54,7 @@ public class GUI : Control
 		ClearSafeLines();
 		foreach (Parser.ParserError Error in ListError)
 		{
-			ErrorMessages.Text += $"Missing {Error.MissingChar} at Line {Error.Line + 1}, Pos {Error.RelativePos + 1}\n";
+			ErrorMessages.Text += Error.GenerateErrorMsg();
 			TextField.SetLineAsSafe(Error.Line, true);
 		}
 	}
@@ -63,5 +65,9 @@ public class GUI : Control
 		{
 			TextField.SetLineAsSafe(i, false);
 		}
+	}
+	private void _on_CheckErrorMessages_pressed()
+	{
+		ErrorMessagesContainer.Visible = !ErrorMessagesContainer.Visible;
 	}
 }

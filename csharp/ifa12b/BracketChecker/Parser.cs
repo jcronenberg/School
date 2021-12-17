@@ -14,6 +14,11 @@ namespace Parser
 		{
 			AbsolutePos = pos;
 		}
+
+		public string GenerateErrorMsg()
+		{
+			return $"Missing {MissingChar} at Line {Line + 1}, Pos {RelativePos + 1}\n";
+		}
 	}
 
 	public class Parser
@@ -47,7 +52,7 @@ namespace Parser
 			// Step through Input string
 			for (int i = 0; i < Input.Length; i++)
 			{
-				// Safe current char
+				// Save current char
 				char current = Input[i];
 
 				// Check if current is an opening bracket
@@ -61,7 +66,7 @@ namespace Parser
 				// Check if current is a closing bracket
 				else if (ClosingBrackets.Contains(current))
 				{
-					// Safe popped element
+					// Save popped element
 					int bracket = BracketStack.Pop();
 
 					// This is a trick that uses ascii values
@@ -69,7 +74,7 @@ namespace Parser
 					// are either 1 or 2 ascii values away
 					int diff = current - bracket;
 
-					if (diff > 2 || diff < 0)
+					if (diff > 2 || diff < 1)
 					{
 						ListError.Add(new ParserError(i));
 						BracketStack.Push(bracket);
@@ -91,7 +96,7 @@ namespace Parser
 
 			return ListError.Count == 0;
 		}
-		
+
 		// Return number of errors
 		// This assumes you have ran CheckValid() beforehand
 		public int GetErrorCount()
@@ -131,6 +136,7 @@ namespace Parser
 							else if (Input[i] == ClosingBrackets[j])
 								Error.MissingChar = OpeningBrackets[j];
 						}
+						break;
 					}
 					else if (Input[i] == '\n')
 					{
