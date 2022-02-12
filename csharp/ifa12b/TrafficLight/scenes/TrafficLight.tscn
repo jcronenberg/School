@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Lights.cs" type="Script" id=1]
+[ext_resource path="res://RedCircle.png" type="Texture" id=2]
+[ext_resource path="res://YellowCircle.png" type="Texture" id=3]
+[ext_resource path="res://GreenCircle.png" type="Texture" id=4]
+[ext_resource path="res://BlackCircle.png" type="Texture" id=5]
+
+[node name="TrafficLight" type="Control"]
+rect_min_size = Vector2( 100, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LightsPosition" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -25.0
+margin_top = -150.0
+margin_right = 25.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 50, 300 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedLight" type="Control" parent="LightsPosition"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.0
+margin_right = 25.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackCircle" type="Sprite" parent="LightsPosition/RedLight"]
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 200, 200 )
+
+[node name="RedCircle" type="Sprite" parent="LightsPosition/RedLight"]
+visible = false
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+
+[node name="YellowLight" type="Control" parent="LightsPosition"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -25.0
+margin_top = -25.0
+margin_right = 25.0
+margin_bottom = 25.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackCircle" type="Sprite" parent="LightsPosition/YellowLight"]
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 200, 200 )
+
+[node name="YellowCircle" type="Sprite" parent="LightsPosition/YellowLight"]
+visible = false
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 3 )
+
+[node name="GreenLight" type="Control" parent="LightsPosition"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -25.0
+margin_top = -50.0
+margin_right = 25.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackCircle" type="Sprite" parent="LightsPosition/GreenLight"]
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 200, 200 )
+
+[node name="GreenCircle" type="Sprite" parent="LightsPosition/GreenLight"]
+visible = false
+position = Vector2( 25, 25 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 4 )

@@ -1,0 +1,154 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://LightsVSplit.cs" type="Script" id=1]
+[ext_resource path="res://SpawnLightsVSplit.cs" type="Script" id=2]
+[ext_resource path="res://Controls.cs" type="Script" id=6]
+
+[node name="GUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LightControlsSplit" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LightsVSplit" type="HBoxContainer" parent="LightControlsSplit"]
+margin_right = 1024.0
+margin_bottom = 371.0
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="Controls" type="MarginContainer" parent="LightControlsSplit"]
+margin_top = 375.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/margin_top = 25
+custom_constants/margin_bottom = 25
+script = ExtResource( 6 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LightControlsSplit/Controls"]
+margin_top = 25.0
+margin_right = 1024.0
+margin_bottom = 200.0
+
+[node name="ControlsVSplit" type="VBoxContainer" parent="LightControlsSplit/Controls/HBoxContainer"]
+margin_right = 510.0
+margin_bottom = 175.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 25
+
+[node name="OnButton" type="Button" parent="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit"]
+margin_left = 155.0
+margin_right = 355.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 200, 25 )
+size_flags_horizontal = 4
+text = "Switch ON"
+
+[node name="OffButton" type="Button" parent="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit"]
+margin_left = 155.0
+margin_top = 50.0
+margin_right = 355.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 200, 25 )
+size_flags_horizontal = 4
+text = "Switch OFF"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CycleButton" type="Button" parent="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit"]
+margin_left = 155.0
+margin_top = 100.0
+margin_right = 355.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 200, 25 )
+size_flags_horizontal = 4
+text = "Next Cycle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AutoButton" type="Button" parent="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit"]
+margin_left = 155.0
+margin_top = 150.0
+margin_right = 355.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 200, 25 )
+size_flags_horizontal = 4
+toggle_mode = true
+text = "Automated Cycle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpawnLightsVSplit" type="VBoxContainer" parent="LightControlsSplit/Controls/HBoxContainer"]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 175.0
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+
+[node name="InputLights" type="HBoxContainer" parent="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit"]
+margin_left = 174.0
+margin_right = 336.0
+margin_bottom = 25.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit/InputLights"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+text = "TrafficLights:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit/InputLights"]
+margin_left = 104.0
+margin_right = 162.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 50, 25 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "4"
+align = 1
+max_length = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacing" type="Control" parent="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit"]
+margin_top = 29.0
+margin_right = 510.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="SpawnLightsButton" type="Button" parent="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit"]
+margin_left = 155.0
+margin_top = 48.0
+margin_right = 355.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 200, 25 )
+size_flags_horizontal = 4
+text = "Change amount"
+
+[connection signal="pressed" from="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit/OnButton" to="LightControlsSplit/Controls" method="_on_OnButton_pressed"]
+[connection signal="pressed" from="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit/OffButton" to="LightControlsSplit/Controls" method="_on_OffButton_pressed"]
+[connection signal="pressed" from="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit/CycleButton" to="LightControlsSplit/Controls" method="_on_CycleButton_pressed"]
+[connection signal="toggled" from="LightControlsSplit/Controls/HBoxContainer/ControlsVSplit/AutoButton" to="LightControlsSplit/Controls" method="_on_AutoButton_toggled"]
+[connection signal="text_entered" from="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit/InputLights/LineEdit" to="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit" method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit/SpawnLightsButton" to="LightControlsSplit/Controls/HBoxContainer/SpawnLightsVSplit" method="_on_SpawnLightsButton_pressed"]
