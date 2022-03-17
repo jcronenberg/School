@@ -10,24 +10,18 @@ public class Program
         Einheit[] Armee = new Einheit[armysize];
         for (int i = 0; i < armysize; i++)
         {
-            int rndnumber = rnd.Next(Namensliste.Length);
             if (i < 6)
             {
-                Armee[i] = new Bogenschuetze(rndnumber);
+                Armee[i] = new Bogenschuetze(rnd.Next(20), Namensliste[rnd.Next(Namensliste.Length)]);
             }
             else if (i < 12)
             {
-                Armee[i] = new Infanterie();
+                Armee[i] = new Infanterie(rnd.Next(20), Namensliste[rnd.Next(Namensliste.Length)]);
             }
             else
             {
-                Armee[i] = new Kavallerie();
+                Armee[i] = new Kavallerie(rnd.Next(20), Namensliste[rnd.Next(Namensliste.Length)]);
             }
-
-            Armee[i].Name = Namensliste[rndnumber];
-            Armee[i].Angriff = rndnumber;
-            Armee[i].Verteidigung = rndnumber;
-            Armee[i].Reichweite = (float)rndnumber + 50;
         }
 
         for (int i = 0; i < armysize; i++)
@@ -56,11 +50,25 @@ public class Einheit
 	{
         Console.WriteLine($"Einheit fügt {Angriff} Schaden dem Gegner \"{gegner.Name}\" zu");
     }
+
+    public Einheit(int a, string name)
+    {
+        Name = name;
+        Angriff = a;
+        Verteidigung = a;
+        Reichweite = (float)a + 50;
+    }
 }
 
 public class Bogenschuetze : Einheit
 {
     public int AnzahlPfeile = 0;
+
+    public Bogenschuetze(int a, string name) : base(a, name)
+    {
+        AnzahlPfeile = a;
+    }
+
     public override void kampf()
 	{
         Console.WriteLine($"Bogenschütze \"{Name}\" hat {AnzahlPfeile} Pfeile und schießt über {Reichweite} m und fügt {Angriff} Schaden zu");
@@ -70,16 +78,15 @@ public class Bogenschuetze : Einheit
     {
         Console.WriteLine($"Bogenschütze \"{Name}\" hat {AnzahlPfeile} Pfeile und schießt über {Reichweite} m und fügt {Angriff} Schaden dem Gegner \"{gegner.Name}\" zu");
     }
-
-    public Bogenschuetze(int a)
-    {
-        AnzahlPfeile = a;
-    }
 }
 
 public class Infanterie : Einheit
 {
     public string SchwertArt;
+
+    public Infanterie(int a, string name) : base(a, name)
+    { }
+
     public override void kampf()
     {
         Console.WriteLine($"Infanterie \"{Name}\" greift im Nahkampf an und fügt {Angriff} Schaden zu");
@@ -89,6 +96,10 @@ public class Infanterie : Einheit
 public class Kavallerie : Einheit
 {
     public string PferdeArt;
+
+    public Kavallerie(int a, string name) : base(a, name)
+    { }
+
     public override void kampf()
     {
         Console.WriteLine($"Kavallerie \"{Name}\" reitet los und fügt {Angriff} Schaden zu");

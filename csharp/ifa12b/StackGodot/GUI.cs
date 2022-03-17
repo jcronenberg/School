@@ -29,7 +29,7 @@ public class GUI : Control
 		// Connect push to enter action when pressed in inputField
 		inputField.Connect("text_entered", this, nameof(_on_text_entered));
 	}
-	
+
 	// Wrapper for _on_push_pressed since text_entered signal wants somewhere to put a string parameter
 	public void _on_text_entered(String _unused)
 	{
