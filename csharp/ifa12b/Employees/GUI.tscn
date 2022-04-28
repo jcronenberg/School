@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Input.tscn" type="PackedScene" id=2]
+[ext_resource path="res://EmployeeList.tscn" type="PackedScene" id=3]
+[ext_resource path="res://EmployeeStatistics.tscn" type="PackedScene" id=5]
+
+[node name="GUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HboxWindows" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 580.0
+custom_constants/separation = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputVBox" parent="MarginContainer/HboxWindows" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 472.0
+margin_bottom = 560.0
+
+[node name="VBoxWindows" type="VBoxContainer" parent="MarginContainer/HboxWindows"]
+margin_left = 512.0
+margin_right = 984.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+custom_constants/separation = 40
+
+[node name="EmployeeList" parent="MarginContainer/HboxWindows/VBoxWindows" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 472.0
+margin_bottom = 260.0
+size_flags_horizontal = 1
+size_flags_vertical = 3
+
+[node name="EmployeeStatistics" parent="MarginContainer/HboxWindows/VBoxWindows" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 300.0
+margin_right = 472.0
+margin_bottom = 560.0

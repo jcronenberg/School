@@ -1,0 +1,252 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Input.cs" type="Script" id=1]
+[ext_resource path="res://RobotoMonoLight.tres" type="DynamicFont" id=2]
+
+[node name="InputVBox" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 7
+size_flags_vertical = 5
+custom_constants/separation = 10
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Navigation" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 28.0
+
+[node name="Label" type="Label" parent="Navigation"]
+margin_top = 3.0
+margin_right = 50.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 2 )
+text = "Input"
+
+[node name="Divider" type="Control" parent="Navigation"]
+margin_left = 54.0
+margin_right = 998.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="Navigation"]
+margin_left = 1002.0
+margin_right = 1024.0
+margin_bottom = 28.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 2 )
+text = "X"
+
+[node name="TypeSelectorHBox" type="HBoxContainer" parent="."]
+margin_left = 410.0
+margin_top = 38.0
+margin_right = 614.0
+margin_bottom = 66.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/separation = 20
+
+[node name="ContractorButton" type="Button" parent="TypeSelectorHBox"]
+margin_right = 112.0
+margin_bottom = 28.0
+size_flags_horizontal = 6
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = true
+pressed = true
+text = "Contractor"
+
+[node name="WorkerButton" type="Button" parent="TypeSelectorHBox"]
+margin_left = 132.0
+margin_right = 204.0
+margin_bottom = 28.0
+size_flags_horizontal = 6
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = true
+text = "Worker"
+
+[node name="TypeSeperator" type="Control" parent="."]
+margin_top = 76.0
+margin_right = 1024.0
+margin_bottom = 91.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="FirstnameHBox" type="HBoxContainer" parent="."]
+margin_left = 387.0
+margin_top = 101.0
+margin_right = 637.0
+margin_bottom = 133.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="FirstnameHBox"]
+margin_left = 6.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 2 )
+text = "Firstname"
+
+[node name="LineEdit" type="LineEdit" parent="FirstnameHBox"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LastnameHBox" type="HBoxContainer" parent="."]
+margin_left = 387.0
+margin_top = 143.0
+margin_right = 637.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="LastnameHBox"]
+margin_left = 16.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 2 )
+text = "Lastname"
+
+[node name="LineEdit" type="LineEdit" parent="LastnameHBox"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 6
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContractorContainer" type="VBoxContainer" parent="."]
+margin_left = 387.0
+margin_top = 185.0
+margin_right = 637.0
+margin_bottom = 217.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+custom_constants/separation = 40
+
+[node name="SalaryHBox" type="HBoxContainer" parent="ContractorContainer"]
+margin_right = 250.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="ContractorContainer/SalaryHBox"]
+margin_left = 36.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 2 )
+text = "Salary"
+
+[node name="LineEdit" type="LineEdit" parent="ContractorContainer/SalaryHBox"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 10
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorkerContainer" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 387.0
+margin_top = 227.0
+margin_right = 637.0
+margin_bottom = 301.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+custom_constants/separation = 10
+
+[node name="HoursHBox" type="HBoxContainer" parent="WorkerContainer"]
+margin_right = 250.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="WorkerContainer/HoursHBox"]
+margin_left = 46.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 2 )
+text = "Hours"
+
+[node name="LineEdit" type="LineEdit" parent="WorkerContainer/HoursHBox"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WageHBox" type="HBoxContainer" parent="WorkerContainer"]
+margin_top = 42.0
+margin_right = 250.0
+margin_bottom = 74.0
+
+[node name="Label" type="Label" parent="WorkerContainer/WageHBox"]
+margin_left = 56.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 27.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 2 )
+text = "Wage"
+
+[node name="LineEdit" type="LineEdit" parent="WorkerContainer/WageHBox"]
+margin_left = 100.0
+margin_right = 250.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateButton" type="Button" parent="."]
+margin_left = 476.0
+margin_top = 227.0
+margin_right = 548.0
+margin_bottom = 255.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 2 )
+text = "Create"
+
+[node name="ErrorLabel" type="Label" parent="."]
+margin_top = 265.0
+margin_right = 1024.0
+margin_bottom = 279.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+align = 1
+
+[connection signal="pressed" from="Navigation/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="TypeSelectorHBox/ContractorButton" to="." method="_on_ContractorButton_pressed"]
+[connection signal="pressed" from="TypeSelectorHBox/WorkerButton" to="." method="_on_WorkerButton_pressed"]
+[connection signal="pressed" from="CreateButton" to="." method="_on_CreateButton_pressed"]

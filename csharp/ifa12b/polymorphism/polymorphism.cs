@@ -10,11 +10,11 @@ public class Program
         Einheit[] Armee = new Einheit[armysize];
         for (int i = 0; i < armysize; i++)
         {
-            if (i < 6)
+            if (i < armysize / 3)
             {
                 Armee[i] = new Bogenschuetze(rnd.Next(20), Namensliste[rnd.Next(Namensliste.Length)]);
             }
-            else if (i < 12)
+            else if (i < armysize / 3 * 2)
             {
                 Armee[i] = new Infanterie(rnd.Next(20), Namensliste[rnd.Next(Namensliste.Length)]);
             }
@@ -27,9 +27,9 @@ public class Program
         for (int i = 0; i < armysize; i++)
         {
 			// Version 1
-            Armee[i].kampf();
+            // Armee[i].kampf();
 			// Version 2
-            // Armee[i].kampf(Armee[(i + rnd.Next(armysize)) % armysize]);
+            Armee[i].kampf(Armee[rnd.Next(armysize)]);
         }
     }
 }

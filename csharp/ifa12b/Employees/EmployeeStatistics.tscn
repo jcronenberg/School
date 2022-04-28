@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://RobotoMonoLight.tres" type="DynamicFont" id=1]
+[ext_resource path="res://EmployeeStatistics.cs" type="Script" id=2]
+
+[node name="EmployeeStatistics" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Navigation" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 28.0
+
+[node name="Label" type="Label" parent="Navigation"]
+margin_top = 3.0
+margin_right = 190.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 1 )
+text = "Employee Statistics"
+
+[node name="Divider" type="Control" parent="Navigation"]
+margin_left = 194.0
+margin_right = 998.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="Navigation"]
+margin_left = 1002.0
+margin_right = 1024.0
+margin_bottom = 28.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 1 )
+text = "X"
+
+[node name="AverageSalary" type="HBoxContainer" parent="."]
+margin_left = 340.0
+margin_top = 33.0
+margin_right = 684.0
+margin_bottom = 65.0
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="AverageSalary"]
+margin_top = 5.0
+margin_right = 140.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 1 )
+text = "Average Salary"
+
+[node name="LineEdit" type="LineEdit" parent="AverageSalary"]
+margin_left = 144.0
+margin_right = 344.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/font = ExtResource( 1 )
+editable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Navigation/CloseButton" to="." method="_on_CloseButton_pressed"]
